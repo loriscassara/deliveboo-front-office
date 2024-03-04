@@ -1,10 +1,10 @@
 <script>
 import { store } from "../store";
-import EventCard from "../components/EventCard.vue";
+import RestaurantCard from "../components/RestaurantCard.vue";
 export default {
   name: "EventList",
   components: {
-    EventCard,
+    RestaurantCard,
   },
   data() {
     return {
@@ -42,9 +42,10 @@ export default {
 <template>
   <div class="container">
     <div class="row">
-      <h1>Eventi in programma:</h1>
-      <EventCard v-for="event in store.eventList" :item="event" />
+      <h1>Lista ristoranti:</h1>
+      <RestaurantCard v-for="restaurant in store.restaurantsList" :item="restaurant" />
     </div>
   </div>
 </template>
+
 <style scoped></style>

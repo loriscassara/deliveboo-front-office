@@ -2,7 +2,7 @@
 import { store } from "../store.js";
 import axios from "axios";
 export default {
-  name: "TagsList",
+  name: "ProductsList",
   data() {
     return {
       store,
@@ -14,14 +14,14 @@ export default {
   },
   methods: {
     getTagDetail() {
-      let url = this.store.apiUrl + this.store.apiTagEndPoint;
+      let url = this.store.apiUrl + this.store.apiProductEndPoint;
 
       axios
         .get(url)
         .then((result) => {
           if (result.status === 200) {
             if (result.data.success) {
-              this.store.tagList = result.data.payload;
+              this.store.productList = result.data.payload;
             } else {
               console.error(
                 "Ops... non siamo in grado di soddisfare la richiesta."
@@ -53,14 +53,15 @@ export default {
 
 <template>
   <ul>
-    <h1>Lista tags disponibili:</h1>
-    <li v-for="tag in store.tagList">
-      <router-link
-        :to="{ name: 'Tag-detail', params: { id: tag.id } }"
+    <h1>Lista Piatti:</h1>
+    <li v-for="product in store.productList">
+      <!-- <router-link
+        :to="{ name: 'Restaurant-details', params: { id: product.id } }"
         class="btn btn-primary"
       >
-        <span>{{ tag.name }}</span>
-      </router-link>
+        <span>{{ product?.name }}</span>
+      </router-link> -->
+      <span>{{ product?.name }}</span>
     </li>
   </ul>
 </template>

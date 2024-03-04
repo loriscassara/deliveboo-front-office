@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import AppHome from "./pages/AppHome.vue";
-import AppAbout from "./pages/AppAbout.vue";
 import EventList from "./pages/EventList.vue";
 import EventDetail from "./pages/EventDetail.vue";
-import TagsList from "./pages/TagsList.vue";
+import ProductsList from "./pages/ProductsList.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,25 +14,20 @@ const router = createRouter({
       component: AppHome,
     },
     {
-      path: "/events",
-      name: "Events",
+      path: "/restaurants",
+      name: "Restaurants",
       component: EventList,
     },
     {
-      path: "/events/:id",
-      name: "Event-detail",
+      path: "/restaurants/:id",
+      name: "Restaurant-detail",
       component: EventDetail,
-      props: true,
+      props: true
     },
     {
-      path: "/about",
-      name: "About",
-      component: AppAbout,
-    },
-    {
-      path: "/tags",
-      name: "Tags",
-      component: TagsList,
+      path: "/products",
+      name: "Products",
+      component: ProductsList
     },
   ],
 });

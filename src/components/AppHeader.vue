@@ -12,14 +12,10 @@ export default {
           routeName: "Restaurants",
           label: "Ristoranti",
         },
-        {
-          routeName: "About",
-          label: "Chi siamo",
-        },
-        {
-          routeName: "Cart",
-          label: "Carrello",
-        },
+        // {
+        //   routeName: "Products",
+        //   label: "Prodotti"
+        // }
       ],
     };
   },

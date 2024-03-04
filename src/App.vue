@@ -17,6 +17,7 @@ export default {
   },
   mounted() {
     this.doThings();
+    this.getRestaurantList();
 
     // axios.get("indirizzo").then(risultato => {
     // 	console.log(risultato);
@@ -28,6 +29,30 @@ export default {
     doThings() {
       console.log("App.vue does things");
     },
+    getRestaurantList() {
+			let url = this.store.apiUrl + this.store.apiEventEndpoint;
+
+			axios.get(url).then(result => {
+				if (result.status === 200) {
+					if (result.data.success) {
+						this.store.restaurantsList = result.data.payload;
+					} else {
+						console.error("Ops... non siamo in grado di soddisfare la richiesta.");
+					}
+
+				} else if (result.status === 301) {
+					console.error("Ops... ciò che cerchi non si trova più qui.");
+				} else if (result.status === 400) {
+					console.error("Ops... non riusciamo a comprendere ciò che hai richiesto.");
+				} else if (result.status === 404) {
+					console.error("Ops... non riusciamo a trovare ciò che hai richiesto.");
+				} else if (result.status === 500) {
+					console.error("Ops... ci scusiamo per l'inconveniente, stiamo spegnendo l'incendio.");
+				}
+			}).catch(errore => {
+				console.error(errore);
+			});
+		}
   },
 };
 </script>
@@ -35,13 +60,7 @@ export default {
 <template>
   <main>
     <AppHeader />
-
-    <AppComponent />
-
-    <button class="btn btn-primary">
-      <font-awesome-icon icon="fa-solid fa-home" class="me-1" />
-      <span>Primary button</span>
-    </button>
+    <router-view></router-view>
   </main>
 </template>
 
