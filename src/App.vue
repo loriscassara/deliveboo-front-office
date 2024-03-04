@@ -1,49 +1,53 @@
 <script>
-import AppComponent from "./components/AppComponent.vue"
+import AppComponent from "./components/AppComponent.vue";
+import AppHeader from "./components/AppHeader.vue";
 
-import axios from 'axios'; //importo Axios
-import { store } from "./store.js" //state management
+import axios from "axios"; //importo Axios
+import { store } from "./store.js"; //state management
 
 export default {
-	components: {
-		AppComponent
-	},
-	data() {
-		return {
-			store
-		}
-	},
-	mounted() {
-		this.doThings();
+  components: {
+    AppComponent,
+    AppHeader,
+  },
+  data() {
+    return {
+      store,
+    };
+  },
+  mounted() {
+    this.doThings();
 
-		// axios.get("indirizzo").then(risultato => {
-		// 	console.log(risultato);
-		// }).catch(errore => {
-		// 	console.error(errore);
-		// });
-	},
-	methods: {
-		doThings() {
-			console.log("App.vue does things");
-		}
-	}
-}
+    // axios.get("indirizzo").then(risultato => {
+    // 	console.log(risultato);
+    // }).catch(errore => {
+    // 	console.error(errore);
+    // });
+  },
+  methods: {
+    doThings() {
+      console.log("App.vue does things");
+    },
+  },
+};
 </script>
 
 <template>
-	<main>
-		<AppComponent />
+  <main>
+    <AppHeader />
 
-		<button class="btn btn-primary">
-			<font-awesome-icon icon="fa-solid fa-home" class="me-1" />
-			<span>Primary button</span>
-		</button>
-	</main>
+    <AppComponent />
+
+    <button class="btn btn-primary">
+      <font-awesome-icon icon="fa-solid fa-home" class="me-1" />
+      <span>Primary button</span>
+    </button>
+  </main>
 </template>
 
 <style lang="scss">
 // importo il foglio di stile generale dell'applicazione, non-scoped
-@use './styles/general.scss';
+@use "./styles/general.scss";
 </style>
 
 <style scoped lang="scss">
@@ -52,6 +56,6 @@ export default {
 
 // ...qui eventuale SCSS di App.vue
 main {
-	padding: 1rem;
+  padding: 1rem;
 }
 </style>
