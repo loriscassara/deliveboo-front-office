@@ -14,32 +14,34 @@ const router = createRouter({
       path: "/",
       name: "Home",
       component: AppHome,
+      props: true,
     },
     {
       path: "/restaurants",
       name: "Restaurants",
       component: EventList,
+      props: true,
     },
     {
       path: "/restaurants/:id",
       name: "Restaurant-detail",
       component: EventDetail,
-      props: true
+      props: true,
     },
     {
       path: "/products",
       name: "Products",
-      component: ProductsList
+      component: ProductsList,
     },
     {
       path: "/search",
       name: "ProductSearch",
-      component: ProductSearch
+      component: ProductSearch,
     },
     {
       path: "/update",
       name: "ProductsFiltered",
-      component: ProductsFiltered
+      component: ProductsFiltered,
     },
   ],
 });

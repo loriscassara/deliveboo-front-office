@@ -42,10 +42,13 @@ export default {
 <template>
   <div class="container">
     <div class="row">
-      <h1>Lista ristoranti:</h1>
-      <RestaurantCard v-for="restaurant in store.restaurantsList" :item="restaurant" />
+      <h1 class="text-center">Lista ristoranti:</h1>
+      <RestaurantCard
+        v-for="restaurant in store.restaurantsList"
+        :item="restaurant"
+      />
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
