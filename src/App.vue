@@ -18,6 +18,7 @@ export default {
   mounted() {
     this.doThings();
     this.getRestaurantList();
+    this.getTypesList();
 
     // axios.get("indirizzo").then(risultato => {
     // 	console.log(risultato);
@@ -52,7 +53,57 @@ export default {
 			}).catch(errore => {
 				console.error(errore);
 			});
-		}
+		},
+    getTypesList() {
+			let url = this.store.apiUrl + this.store.apiSearchEndPoint;
+
+			axios.get(url).then(result => {
+				if (result.status === 200) {
+					if (result.data.success) {
+						this.store.types = result.data.payload;
+            console.log(this.store.types)
+					} else {
+						console.error("Ops... non siamo in grado di soddisfare la richiesta.");
+					}
+
+				} else if (result.status === 301) {
+					console.error("Ops... ciò che cerchi non si trova più qui.");
+				} else if (result.status === 400) {
+					console.error("Ops... non riusciamo a comprendere ciò che hai richiesto.");
+				} else if (result.status === 404) {
+					console.error("Ops... non riusciamo a trovare ciò che hai richiesto.");
+				} else if (result.status === 500) {
+					console.error("Ops... ci scusiamo per l'inconveniente, stiamo spegnendo l'incendio.");
+				}
+			}).catch(errore => {
+				console.error(errore);
+			});
+		},
+    getFilteredList() {
+			let url = this.store.apiUrl + this.store.apiFilteredEndPoint;
+
+			axios.get(url).then(result => {
+				if (result.status === 200) {
+					if (result.data.success) {
+						this.store.filteredList = result.data.payload;
+            console.log(this.store.filteredList)
+					} else {
+						console.error("Ops... non siamo in grado di soddisfare la richiesta.");
+					}
+
+				} else if (result.status === 301) {
+					console.error("Ops... ciò che cerchi non si trova più qui.");
+				} else if (result.status === 400) {
+					console.error("Ops... non riusciamo a comprendere ciò che hai richiesto.");
+				} else if (result.status === 404) {
+					console.error("Ops... non riusciamo a trovare ciò che hai richiesto.");
+				} else if (result.status === 500) {
+					console.error("Ops... ci scusiamo per l'inconveniente, stiamo spegnendo l'incendio.");
+				}
+			}).catch(errore => {
+				console.error(errore);
+			});
+		},
   },
 };
 </script>

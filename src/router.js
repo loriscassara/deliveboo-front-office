@@ -4,6 +4,8 @@ import AppHome from "./pages/AppHome.vue";
 import EventList from "./pages/EventList.vue";
 import EventDetail from "./pages/EventDetail.vue";
 import ProductsList from "./pages/ProductsList.vue";
+import ProductSearch from "./pages/ProductSearch.vue";
+import ProductsFiltered from "./pages/ProductsFiltered.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -28,6 +30,16 @@ const router = createRouter({
       path: "/products",
       name: "Products",
       component: ProductsList
+    },
+    {
+      path: "/search",
+      name: "ProductSearch",
+      component: ProductSearch
+    },
+    {
+      path: "/update",
+      name: "ProductsFiltered",
+      component: ProductsFiltered
     },
   ],
 });
