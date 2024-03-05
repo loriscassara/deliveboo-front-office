@@ -14,11 +14,13 @@ const router = createRouter({
       path: "/",
       name: "Home",
       component: AppHome,
+      props: true
     },
     {
-      path: "/restaurants",
+      path: "/",
       name: "Restaurants",
-      component: EventList,
+      component: AppHome,
+      props: true
     },
     {
       path: "/restaurants/:id",

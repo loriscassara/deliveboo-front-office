@@ -1,21 +1,31 @@
 <script>
+import { store } from "../store";
+import RestaurantCard from "../components/RestaurantCard.vue";
+import TypesCard from "../components/TypesCard.vue";
 export default {
-  name: "HomePage",
+  name: "AppHome",
+  components: {
+    RestaurantCard,
+    TypesCard,
+  },
+  data() {
+    return {
+      store,
+    };
+  },
 };
 </script>
 
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
-        <h1>HomePage</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores,
-          cumque. Nulla, sit qui? Possimus corrupti tempora vero est iure
-          voluptas.
-        </p>
-      </div>
+      <h1>Benvenuto su Deliveboo!</h1>
+      <h3>le nostre categorie:</h3>
+      <TypesCard />
+      <h3>La lista dei nostri ristoranti:</h3>
+      <RestaurantCard v-for="restaurant in store.restaurantsList" :item="restaurant" />
     </div>
   </div>
 </template>
+
 <style scoped></style>

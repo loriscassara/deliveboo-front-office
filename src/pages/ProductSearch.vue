@@ -20,13 +20,20 @@ export default {
 
         <form action="/update">
             
-<select class="form-control mb-4" name="types" id="types">
+<!-- <select class="form-control mb-4" name="types" id="types">
                 <option>Scegli la tipologia</option>
                 <option v-for="type in store.types" value="{{ type.id }}"> {{ type.name }} </option>
             </select>
-            <input class="btn btn-primary" type="submit" value="Cerca">
+            <input class="btn btn-primary" type="submit" value="Cerca"> -->
         </form>
-
+        <!-- @foreach ($types as $type)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="types[]"
+                                                id="{{ $type->id }}" value="{{ $type->id }}">
+                                            <label class="form-check-label"
+                                                for="{{ $type->id }}">{{ $type->name }}</label>
+                                        </div>
+                                    @endforeach -->
     </div>
 </div>
 </template>

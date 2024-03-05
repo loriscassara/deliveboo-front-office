@@ -9,10 +9,6 @@ export default {
           label: "Homepage",
         },
         {
-          routeName: "Restaurants",
-          label: "Ristoranti",
-        },
-        {
           routeName: "ProductSearch",
           label: "Ricerca",
         },
