@@ -1,7 +1,6 @@
 <script>
 import AppHeader from "./components/AppHeader.vue";
 import AppJumbo from "./components/AppJumbo.vue";
-import AppHome from "./pages/AppHome.vue";
 
 import axios from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
@@ -12,7 +11,6 @@ export default {
     AppHeader,
     AppJumbo,
     EventList,
-    AppHome,
   },
   data() {
     return {
@@ -146,7 +144,6 @@ export default {
   <main class="p-0">
     <AppHeader />
     <AppJumbo />
-    <AppHome />
     <router-view></router-view>
   </main>
 </template>
