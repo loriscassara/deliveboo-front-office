@@ -83,7 +83,4 @@ button:hover .fa-cart-shopping {
 .offcanvas-header {
   border-color: #57a708 !important;
 }
-//.offcanvas-header {
-//border-color: #57a708 !important;
-//}
 </style>
