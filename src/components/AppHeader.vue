@@ -12,6 +12,10 @@ export default {
           routeName: "Restaurants",
           label: "Ristoranti",
         },
+        {
+          routeName: "ProductSearch",
+          label: "Ricerca",
+        },
         // {
         //   routeName: "Products",
         //   label: "Prodotti"
