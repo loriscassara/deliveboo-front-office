@@ -1,6 +1,8 @@
 <script>
 import AppHeader from "./components/AppHeader.vue";
 import AppJumbo from "./components/AppJumbo.vue";
+import AppSlider from "./components/AppSlider.vue";
+import AppCarousel from "./components/AppCarousel.vue";
 
 import axios from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
@@ -11,6 +13,8 @@ export default {
     AppHeader,
     AppJumbo,
     EventList,
+    AppSlider,
+    AppCarousel
   },
   data() {
     return {
@@ -143,8 +147,10 @@ export default {
 <template>
   <main class="p-0">
     <AppHeader />
-    <AppJumbo />
-    <router-view></router-view>
+    <AppJumbo id="jumbo" />
+    <AppSlider id="slider" />
+    <AppCarousel id="carousel" />
+    <router-view class="router"></router-view>
   </main>
 </template>
 
@@ -160,5 +166,23 @@ export default {
 // ...qui eventuale SCSS di App.vue
 main {
   padding: 1rem;
+}
+
+#jumbo {
+  position: relative;
+}
+
+#slider {
+  position: absolute;
+  bottom: 80px;
+}
+
+#carousel {
+  position: absolute;
+  bottom: -80px;
+}
+
+.router {
+  padding-top: 300px;
 }
 </style>

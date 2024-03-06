@@ -24,13 +24,14 @@ export default {
     },
   
 }
-
-
-
 </script>
 
 <template>
-                <div >
-                        <span :id="tag.id" class="m-2 badge rounded-pill text-bg-info" v-for="tag in store.types">{{ tag.name }}</span>
-                </div>
+    <div class="text-center">
+        <span :id="tag.id" class="btn btn-outline-dark m-2" v-for="tag in store.types">{{ tag.name }}</span>
+    </div>
 </template>
+
+<style scoped lang="scss">
+
+</style>

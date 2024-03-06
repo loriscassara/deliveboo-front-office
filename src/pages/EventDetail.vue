@@ -61,8 +61,8 @@ export default {
 <template>
   <div class="container">
     <div class="row">
-      <h3 class="mb-3">Piatti del ristorante:</h3>
-      <div class="m-4" v-for="product in restaurant?.products">
+      <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante</h3>
+       <div class="m-4" v-for="product in restaurant?.products">
               
                         <h5>{{ product.name }}</h5>
                         <h5>{{ product.description }}</h5>
@@ -74,7 +74,9 @@ export default {
         <span>Torna alla lista ristoranti</span>
       </router-link>
     </div>
-  </div>
+  </div> 
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+
+</style>
