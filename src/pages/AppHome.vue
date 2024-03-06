@@ -11,10 +11,31 @@ export default {
   data() {
     return {
       store,
+      selectedTypes: [],
     };
   },
+  computed: {
+    filteredRestaurants() {
+      return this.store.restaurantsList.filter(restaurant => {
+        // Controlla se non ci sono tipi selezionati
+        if (this.selectedTypes.length === 0) {
+          return true; // Se non ci sono tipi selezionati, tutti i ristoranti devono essere visualizzati.
+        } else {
+          // Verifica che tutti i tipi selezionati siano presenti nei tipi associati al ristorante
+          return this.selectedTypes.every(selectedTypeId =>
+            restaurant.types.some(tag => tag.id === selectedTypeId)
+          );
+        }
+      });
+    },
+  },
 };
+
 </script>
+
+
+
+
 
 <template>
   <div class="container">
@@ -22,8 +43,21 @@ export default {
       <h1>Benvenuto su Deliveboo!</h1>
       <h3>le nostre categorie:</h3>
       <TypesCard />
+
+      <div v-for="tag in store.types">
+            <!-- <input type="checkbox" v-model="selectedTypes" :value="tag.id" @change="filteredRestaurants">
+          {{ tag.name }} -->
+         
+            <input type="checkbox" v-model="selectedTypes" :value="tag.id" @change="filteredRestaurants" class="btn-check" :id="tag.id" autocomplete="off">
+            <label class="btn btn-primary" :for="tag.id"> {{ tag.name }} </label>
+            
+      </div>
+
+
+
+
       <h3>La lista dei nostri ristoranti:</h3>
-      <RestaurantCard v-for="restaurant in store.restaurantsList" :item="restaurant" />
+      <RestaurantCard v-for="restaurant in filteredRestaurants" :item="restaurant" />
     </div>
   </div>
 </template>

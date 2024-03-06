@@ -5,9 +5,10 @@ export const store = reactive({
   apiEventEndpoint: "restaurants/",
   apiProductEndPoint: "products/",
   apiSearchEndPoint: "search/",
-  apiFilteredEndPoint: "update/",
+  apiFilteredEndPoint: "types/",
   restaurantsList: [],
   types: [],
+  type_list_restaurant: [],
   productList: [],
   filteredList: []
 });
