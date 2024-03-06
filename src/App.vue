@@ -141,8 +141,10 @@ export default {
 </script>
 
 <template>
-  <main class="p-0">
+  <header class="p-0 sticky-top">
     <AppHeader />
+  </header>
+  <main class="p-0">
     <AppJumbo />
     <router-view></router-view>
   </main>
@@ -159,6 +161,7 @@ export default {
 
 // ...qui eventuale SCSS di App.vue
 main {
-  padding: 1rem;
+  overflow-x: hidden;
 }
+
 </style>
