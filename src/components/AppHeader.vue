@@ -24,12 +24,17 @@ export default {
           />
         </a>
         <div>
-          <button
-            type="button"
-            class="btn btn-outline-light mx-2 rounded-circle p-2 border-2"
-          >
+
+          <!-- dropdown to back-office -->
+          <button type="button" class="btn btn-outline-light dropdown-center mx-2 rounded-circle p-2 border-2" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user mx-1"></i>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">Login</a></li>
+                <li><a class="dropdown-item" href="#">Registrati</a></li>
+              </ul>
           </button>
+
+
           <button
             type="button"
             class="btn btn-outline-light mx-2 border-2"
