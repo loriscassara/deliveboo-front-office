@@ -94,9 +94,7 @@ export default {
 </template>
 <style scoped lang="scss">
 
-header {
-  height: 13vh;
-}
+
 .navbar {
   background-image: url(/public/images/nav.jpg);
 }

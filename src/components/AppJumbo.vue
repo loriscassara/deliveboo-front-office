@@ -15,4 +15,5 @@ export default {
 </template>
 
 <style scoped lang="scss">
+#jumbo {background-image: url(/public/images/nav.jpg);} //in case we wanted to add some padding-top
 </style>
