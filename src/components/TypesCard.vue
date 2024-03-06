@@ -1,38 +1,32 @@
 <script>
-import { store } from "../store";
-export default {
-    name: "TypesCard",
-    data() {  
-    return {
-      store,
-      items: [
-      { id: 1, name: 'Item 1', filters: [1, 2] },
-      { id: 2, name: 'Item 2', filters: [2, 3] },
-      { id: 3, name: 'Item 3', filters: [1, 3] }
-    ],
-
-      choosenTypes: [],
+// import { store } from "../store";
+// export default {
+//     name: "TypesCard",
+//     data() {  
+//     return {
+//       store,
+//       choosenTypes: [],
       
-    };
-  },
-  computed: {
-        filteredRestaurants() {
+//     };
+//   },
+//   computed: {
+//         filteredRestaurants() {
             
-            let filteredRestaurants = [...this.store.restaurantsList];
+//             let filteredRestaurants = [...this.store.restaurantsList];
 
-            if (this.choosenTypes.length > 0) {
-                filteredRestaurants = filteredRestaurants.filter((restaurant) =>
-                this.choosenTypes.every((choosenTypes) =>
-                restaurant.types.some((type) => type.name === choosenTypes)
-                ));
-            }
-        },
-    },
-    methods:{
+//             if (this.choosenTypes.length > 0) {
+//                 filteredRestaurants = filteredRestaurants.filter((restaurant) =>
+//                 this.choosenTypes.every((choosenTypes) =>
+//                 restaurant.types.some((type) => type.name === choosenTypes)
+//                 ));
+//             }
+//         },
+//     },
+//     methods:{
       
-    }
+//     }
   
-}
+// }
 
 
 
@@ -40,7 +34,7 @@ export default {
 
 <template>
 
-<div>
+<!-- <div>
     <label v-for="filter in filters" :key="filter.id">
       <input type="checkbox" v-model="selectedFilters" :value="filter.id">
       {{ filter.name }}
@@ -51,7 +45,7 @@ export default {
       {{ item.name }}
     </li>
   </ul>
-                <!-- <div >
+                 <div >
                         <button :id="tag.id" class="m-2 badge rounded-pill text-bg-info" v-for="tag in store.types">{{ tag.name }}</button>
-                </div> -->
+                </div> --> 
 </template>
