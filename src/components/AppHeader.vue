@@ -9,9 +9,12 @@ export default {
 };
 </script>
 <template>
+
   <!-- start header section -->
   <header>
-    <nav class="navbar">
+
+    <!-- navbar -->
+    <nav class="navbar px-5">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img
@@ -40,6 +43,7 @@ export default {
       </div>
     </nav>
 
+    <!-- offcanvas -->
     <div
       class="offcanvas offcanvas-end"
       tabindex="-1"
@@ -58,27 +62,56 @@ export default {
         ></button>
       </div>
       <div class="offcanvas-body">
-        <h6 class="text-center">I tuoi articoli</h6>
+        <h6 class="text-center fw-bold">I tuoi articoli</h6>
+        <!-- ternario in cui se non c'è nulla compare "Il carrello è vuoto!" mentre se c'è roba viene "I tuoi articoli" -->
+        
+        <!-- <div class="d-flex">
+          <img src="" alt="">
+          <div>
+            <h6>{{ product.name }}</h6>
+            <p>{{ prduct.price }}</p>
+          </div>
+        </div> -->
+
         <hr />
         <p class="fw-bold text-danger">Totale:</p>
+        <div class="d-flex flex-column align-items-center">
+          <button type="button" class="btn btn-success my-2">Checkout</button>
+          <button type="button" class="btn btn-danger my-2">Svuota Carrello</button>
+        </div>
       </div>
     </div>
+
   </header>
   <!-- end header section -->
+
 </template>
 <style scoped lang="scss">
+
+header {
+  height: 13vh;
+}
 .navbar {
   background-image: url(/public/images/nav.jpg);
-  padding-left: 100px;
-  padding-right: 100px;
 }
 #nav-logo {
-  width: 100px;
-  height: 100px;
+  width: 6rem;
+  height: 6rem;
+}
+
+.offcanvas {width: 20% !important;}
+
+.offcanvas-header {
+  background-image: url(/public/images/health-food-healthy-diet-diabetes-mellitus-movie-set-meal-122c7c38808c03a9d3eb4c009e8f84ba.png);
+  background-size: 77%;
+  background-position-x: right;
+  background-repeat: no-repeat; 
 }
 button:hover .fa-cart-shopping {
   filter: invert(1);
 }
+
+.btn-success, .btn-danger { width: 40%;}
 
 .offcanvas-header {
   border-color: #57a708 !important;
