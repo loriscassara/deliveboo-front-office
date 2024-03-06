@@ -37,12 +37,13 @@ export default {
 
           <button
             type="button"
-            class="btn btn-outline-light mx-2 border-2"
+            class="btn btn-outline-light mx-2 border-2 position-relative"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight"
             aria-controls="offcanvasRight"
           >
             <i class="fa-solid fa-cart-shopping text-light"></i>
+            <div class="dot"></div>
           </button>
         </div>
       </div>
@@ -102,6 +103,16 @@ header {
 #nav-logo {
   width: 6rem;
   height: 6rem;
+}
+
+.dot {
+  position: absolute;
+  width: 0.9rem;
+  height: 0.9rem;
+  background-color: red;
+  border-radius: 50%;
+  right: -0.5rem;
+  top: -0.5rem;
 }
 
 .offcanvas {width: 20% !important;}
