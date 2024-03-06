@@ -44,19 +44,21 @@ export default {
       <h3 class="text-center fw-bold">Categorie ristoranti</h3>
       <TypesCard />
 
+      <div class="d-flex justify-content-center py-4">
       <div v-for="tag in store.types">
             <!-- <input type="checkbox" v-model="selectedTypes" :value="tag.id" @change="filteredRestaurants">
           {{ tag.name }} -->
          
             <input type="checkbox" v-model="selectedTypes" :value="tag.id" @change="filteredRestaurants" class="btn-check" :id="tag.id" autocomplete="off">
-            <label class="btn btn-primary" :for="tag.id"> {{ tag.name }} </label>
+            <label class="btn btn-outline-dark m-2" :for="tag.id"> {{ tag.name }} </label>
             
+      </div>
       </div>
 
 
 
 
-      <h3>La lista dei nostri ristoranti:</h3>
+      <h3 class="text-center fw-bold pb-5">La lista dei nostri ristoranti:</h3>
       <RestaurantCard v-for="restaurant in filteredRestaurants" :item="restaurant" />
     </div>
   </div>
