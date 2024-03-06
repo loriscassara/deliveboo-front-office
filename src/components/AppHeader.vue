@@ -9,9 +9,12 @@ export default {
 };
 </script>
 <template>
+
   <!-- start header section -->
   <header>
-    <nav class="navbar">
+
+    <!-- navbar -->
+    <nav class="navbar px-5">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img
@@ -21,25 +24,32 @@ export default {
           />
         </a>
         <div>
-          <button
-            type="button"
-            class="btn btn-outline-light mx-2 rounded-circle p-2 border-2"
-          >
+
+          <!-- dropdown to back-office -->
+          <button type="button" class="btn btn-outline-light dropdown-center mx-2 rounded-circle p-2 border-2" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user mx-1"></i>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">Login</a></li>
+                <li><a class="dropdown-item" href="#">Registrati</a></li>
+              </ul>
           </button>
+
+
           <button
             type="button"
-            class="btn btn-outline-light mx-2 border-2"
+            class="btn btn-outline-light mx-2 border-2 position-relative"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight"
             aria-controls="offcanvasRight"
           >
             <i class="fa-solid fa-cart-shopping text-light"></i>
+            <div class="dot"></div>
           </button>
         </div>
       </div>
     </nav>
 
+    <!-- offcanvas -->
     <div
       class="offcanvas offcanvas-end"
       tabindex="-1"
@@ -58,27 +68,64 @@ export default {
         ></button>
       </div>
       <div class="offcanvas-body">
-        <h6 class="text-center">I tuoi articoli</h6>
+        <h6 class="text-center fw-bold">I tuoi articoli</h6>
+        <!-- ternario in cui se non c'è nulla compare "Il carrello è vuoto!" mentre se c'è roba viene "I tuoi articoli" -->
+        
+        <!-- <div class="d-flex">
+          <img src="" alt="">
+          <div>
+            <h6>{{ product.name }}</h6>
+            <p>{{ prduct.price }}</p>
+          </div>
+        </div> -->
+
         <hr />
         <p class="fw-bold text-danger">Totale:</p>
+        <div class="d-flex flex-column align-items-center">
+          <button type="button" class="btn btn-success my-2">Checkout</button>
+          <button type="button" class="btn btn-danger my-2">Svuota Carrello</button>
+        </div>
       </div>
     </div>
+
   </header>
   <!-- end header section -->
+
 </template>
 <style scoped lang="scss">
+
+
 .navbar {
   background-image: url(/public/images/nav.jpg);
-  padding-left: 100px;
-  padding-right: 100px;
 }
 #nav-logo {
-  width: 100px;
-  height: 100px;
+  width: 6rem;
+  height: 6rem;
+}
+
+.dot {
+  position: absolute;
+  width: 0.9rem;
+  height: 0.9rem;
+  background-color: red;
+  border-radius: 50%;
+  right: -0.5rem;
+  top: -0.5rem;
+}
+
+.offcanvas {width: 20% !important;}
+
+.offcanvas-header {
+  background-image: url(/public/images/health-food-healthy-diet-diabetes-mellitus-movie-set-meal-122c7c38808c03a9d3eb4c009e8f84ba.png);
+  background-size: 77%;
+  background-position-x: right;
+  background-repeat: no-repeat; 
 }
 button:hover .fa-cart-shopping {
   filter: invert(1);
 }
+
+.btn-success, .btn-danger { width: 40%;}
 
 .offcanvas-header {
   border-color: #57a708 !important;

@@ -145,6 +145,9 @@ export default {
 </script>
 
 <template>
+  <header class="p-0 sticky-top">
+    <AppHeader />
+  </header>
   <main class="p-0">
     <AppHeader />
     <AppJumbo id="jumbo" />
@@ -165,7 +168,7 @@ export default {
 
 // ...qui eventuale SCSS di App.vue
 main {
-  padding: 1rem;
+  overflow-x: hidden;
 }
 
 #jumbo {
