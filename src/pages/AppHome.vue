@@ -58,7 +58,8 @@ export default {
 
 
 
-      <h3 class="text-center fw-bold pb-5">La lista dei nostri ristoranti:</h3>
+      <h3 v-if="filteredRestaurants.length" class="text-center fw-bold pb-5">La lista dei nostri ristoranti:</h3>
+      <h3 v-else class="text-center fw-bold pb-5"><i>Non ci sono ristoranti che soddisfano la ricerca</i></h3>
       <RestaurantCard v-for="restaurant in filteredRestaurants" :item="restaurant" />
     </div>
   </div>
