@@ -45,6 +45,7 @@ export default {
           if (result.status === 200) {
             if (result.data.success) {
               this.store.restaurantsList = result.data.payload;
+			  console.log("risposta restaurants:", this.store.restaurantsList)
             } else {
               console.error(
                 "Ops... non siamo in grado di soddisfare la richiesta."
@@ -113,8 +114,8 @@ export default {
         .then((result) => {
           if (result.status === 200) {
             if (result.data.success) {
-              this.store.filteredList = result.data.payload;
-              console.log(this.store.filteredList);
+              this.store.filteredList = result.data;
+              console.log("risultato list types: ", this.store.filteredList);
             } else {
               console.error(
                 "Ops... non siamo in grado di soddisfare la richiesta."
