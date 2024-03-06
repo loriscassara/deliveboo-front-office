@@ -148,9 +148,7 @@ export default {
   <header class="p-0 sticky-top">
     <AppHeader />
   </header>
-  <main class="p-0">
-    <AppHeader />
-    <AppJumbo id="jumbo" />
+  <main class="p-0">    <AppJumbo id="jumbo" />
     <AppSlider id="slider" />
     <AppCarousel id="carousel" />
     <router-view class="router"></router-view>
