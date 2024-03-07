@@ -1,0 +1,35 @@
+//Importo le variabili per l'utilizzo all'interno di QUESTO file
+@use "./partials/_variables.scss" as *;
+
+//Importo bootstrap per l'utilizzo nell'app
+@import "bootstrap/scss/bootstrap";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #140002 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #140002;
+  border-radius: 20px;
+  border: 7px none #ffffff;
+}
+
+body {
+  font-family: sans-serif;
+  overflow-x: hidden;
+}
