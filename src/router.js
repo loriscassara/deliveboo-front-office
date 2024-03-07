@@ -6,6 +6,8 @@ import EventDetail from "./pages/EventDetail.vue";
 import ProductsList from "./pages/ProductsList.vue";
 import ProductSearch from "./pages/ProductSearch.vue";
 import ProductsFiltered from "./pages/ProductsFiltered.vue";
+import AppCheckout from "./pages/AppCheckout.vue";
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -42,6 +44,11 @@ const router = createRouter({
       path: "/update",
       name: "ProductsFiltered",
       component: ProductsFiltered,
+    },
+    {
+      path: "/checkout",
+      name: "AppCheckout",
+      component: AppCheckout,
     },
   ],
 });

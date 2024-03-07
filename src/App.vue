@@ -5,6 +5,7 @@ import AppSlider from "./components/AppSlider.vue";
 import AppCarousel from "./components/AppCarousel.vue";
 import AppFooter from "./components/AppFooter.vue";
 
+
 import axios from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
 import EventList from "./pages/EventList.vue";
@@ -16,7 +17,8 @@ export default {
     EventList,
     AppSlider,
     AppCarousel,
-    AppFooter
+    AppFooter,
+   
   },
   data() {
     return {
