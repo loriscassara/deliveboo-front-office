@@ -9,7 +9,8 @@ export default {
       store,
       restaurant: null,
       counter: 0,
-      cart: []
+      cart: [],
+      messaggio: "",
     };
   },
   mounted() {
@@ -78,7 +79,11 @@ export default {
       console.log("card: ", this.cart)
     },
     // Altri metodi per rimuovere prodotti dal carrello, svuotare il carrello, etc.
-
+    msgCart(product) {
+      if (product.quantity) {
+        return this.messaggio = `Hai aggiunto ${product.quantity} ${product.name} al carrello.`;
+      }
+    }
 
   },
 };
@@ -122,7 +127,7 @@ export default {
       <form class="d-flex justify-content-between align-items-center" @submit.prevent="addToCart(product)">
         <label class="m-0" :for="product.id">Seleziona quantità:</label>
         <input class="input-group-text mb-2" type="number" :id="product.id" name="quantity" min="1" max="20" v-model="product.quantity">
-        <button type="submit">Aggiungi</button>
+        <button type="submit" @click="msgCart(product)">Aggiungi</button>
       </form>
     </div>
 </div>

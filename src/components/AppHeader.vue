@@ -20,7 +20,7 @@ export default {
     calculateTotal() {
       let total = 0;
       this.store.cart.forEach(item => {
-        total += item.price * item.quantity;
+        total += parseFloat((item.price * item.quantity).toFixed(2));
       });
       return total;
     }
@@ -73,7 +73,7 @@ export default {
             aria-controls="offcanvasRight"
           >
             <i class="fa-solid fa-cart-shopping text-light"></i>
-            <div class="dot"></div>
+            <div class="dot" v-if="this.store.cart.length"></div>
           </button>
         </div>
       </div>
