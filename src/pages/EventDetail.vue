@@ -9,7 +9,7 @@ export default {
     return {
       store,
       restaurant: null,
-      messaggioVisibile: false, // Mantenimento della variabile messaggioVisibile
+      messaggioVisibile: false,
       erroreVisibile: false
     };
   },
@@ -67,13 +67,16 @@ export default {
           quantity: product.quantity,
           price: product.price
         });
-        // Mostra il messaggio di conferma
-        this.mostraMessaggio();
+        localStorage.setItem('cart', JSON.stringify(this.store.cart));
+        const addedProduct = this.store.cart.find(item => item.id === product.id);
+        if (addedProduct) {
+          this.mostraMessaggio();
+        }
       }
-      localStorage.setItem('cart', JSON.stringify(this.store.cart));
     },
     mostraErrore() {
       this.erroreVisibile = true;
+      this.messaggioVisibile = false; // Nasconde il messaggio di conferma in caso di errore
     },
     nascondiErrore() {
       this.erroreVisibile = false;
@@ -142,7 +145,7 @@ export default {
         <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
         <input class="input-group-text mb-2" type="number" :id="product.id" name="quantity" min="1" max="20" v-model="product.quantity">
       </div>
-        <button type="submit" @click="aggiungiAlCarrello">Aggiungi al carrello</button>
+        <button type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
 
       </form>
       <!-- <div v-for="item in store.cart">
