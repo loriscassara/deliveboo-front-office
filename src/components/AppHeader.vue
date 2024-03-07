@@ -1,15 +1,11 @@
 <script>
-import { store } from "../store.js";
-
+import { store } from "../store.js"; //
 export default {
   name: "AppHeader",
   data() {
     return {
       menuItems: [],
-      cart: [],
       store,
-      totalPrice: 0,
-      total: [2, 3],
       sum: 0
     };
     
@@ -29,6 +25,9 @@ export default {
     }
     },
     computed: {
+      cartQuantity() {
+      return this.store.cart.reduce((total, product) => total + product.quantity, 0);
+    }
 //       totalSum() {
 
 // for (let i = 0; i < this.total.length; i++) {
@@ -40,9 +39,9 @@ export default {
     }
 };
 </script>
-
 <template>
   <!-- Modal -->
+  <!-- ciaone -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -75,6 +74,12 @@ export default {
           <button type="button" class="btn btn-outline-light mx-2 rounded-circle p-2 border-2" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user mx-1"></i>
           </button>
+          
+          <!-- dropdown to back-office -->
+          <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item" href="http://127.0.0.1:8000/login">Login</a>
+                <a class="dropdown-item" href="http://127.0.0.1:8000/register">Registrati</a>
+          </div>
 
 
           <button
@@ -85,7 +90,7 @@ export default {
             aria-controls="offcanvasRight"
           >
             <i class="fa-solid fa-cart-shopping text-light"></i>
-            <div class="dot" v-if="this.store.cart.length"></div>
+            <div class="dot" v-if="this.store.cart.length"> {{ cartQuantity }}</div>
           </button>
         </div>
       </div>
@@ -93,28 +98,25 @@ export default {
     
 
     <!-- offcanvas -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasRight"
+      aria-labelledby="offcanvasRightLabel"
+    >
       <div class="offcanvas-header border-3 border-bottom">
         <h5 class="offcanvas-title fw-bold" id="offcanvasRightLabel">
           Il mio carello
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="offcanvas-body">
         <h6 class="text-center fw-bold">I tuoi articoli</h6>
-        <div v-for="item in store.cart" :key="item">
-          <ul>
-            <li class="list-group-item ">
-              <i class="fa fa-bookmark"></i>  {{ item.name}}
-              <span class="badge text-bg-primary rounded-pill">{{ item.quantity }}</span>
-            <li class="list-group-item ">Prezzo: {{ item.price }}€</li>
-            <li class="list-group-item ">Prezzo prodotti {{ item.totalPrice }}€</li>
-
-
-            </li>
-          </ul>
-
-        </div>
         <!-- ternario in cui se non c'è nulla compare "Il carrello è vuoto!" mentre se c'è roba viene "I tuoi articoli" -->
         <p mt-4 v-if="!this.store.cart.length"> Non ci sono prodotti nel carrello</p>
         <p v-else>I tuoi articoli:</p>
@@ -145,12 +147,12 @@ export default {
   <!-- end header section -->
 
 </template>
-
 <style scoped lang="scss">
+
+
 .navbar {
   background-image: url(/public/images/nav.jpg);
 }
-
 #nav-logo {
   width: 6rem;
   height: 6rem;
@@ -171,25 +173,19 @@ export default {
   top: -0.5rem;
 }
 
-.offcanvas {
-  width: 20% !important;
-}
+.offcanvas {width: 20% !important;}
 
 .offcanvas-header {
   background-image: url(/public/images/health-food-healthy-diet-diabetes-mellitus-movie-set-meal-122c7c38808c03a9d3eb4c009e8f84ba.png);
   background-size: 77%;
   background-position-x: right;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; 
 }
-
 button:hover .fa-cart-shopping {
   filter: invert(1);
 }
 
-.btn-success,
-.btn-danger {
-  width: 40%;
-}
+.btn-success, .btn-danger { width: 40%;}
 
 .offcanvas-header {
   border-color: #57a708 !important;

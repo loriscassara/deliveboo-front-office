@@ -52,7 +52,7 @@ export default {
         });
     },
     addToCart(product) {
-      const existingProduct = this.store.store.cart.find(item => item.id === product.id);
+      const existingProduct = this.store.cart.find(item => item.id === product.id);
       if (existingProduct) {
         existingProduct.quantity += product.quantity;
       } else {
@@ -65,9 +65,7 @@ export default {
           restaurantId: product.restaurant_id,
           name: product.name,
           quantity: product.quantity,
-          price: product.price,
-          totalPrice: product.quantity * product.price
-
+          price: product.price
         });
         localStorage.setItem('cart', JSON.stringify(this.store.cart));
         const addedProduct = this.store.cart.find(item => item.id === product.id);
@@ -98,7 +96,7 @@ export default {
   <!-- <div class="container">
     <div class="row">
       <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante</h3>
-      <div class="m-4" v-for="product in restaurant?.products">
+       <div class="m-4" v-for="product in restaurant?.products">
         <h5>{{ product.name }}</h5>
         <h5>{{ product.description }}</h5>
         <h5>prezzo: {{ product.price }} €</h5>
