@@ -25,6 +25,11 @@ export default {
     this.doThings();
     this.getRestaurantList();
     this.getTypesList();
+    //LocalStorage per salvataggio browser item nel carrello.
+		const cart = localStorage.getItem('cart');
+		if (cart) {
+			this.store.cart = JSON.parse(cart);
+		}
 
     // axios.get("indirizzo").then(risultato => {
     // 	console.log(risultato);
