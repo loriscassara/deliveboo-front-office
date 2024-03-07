@@ -6,7 +6,6 @@ export default {
     return {
       menuItems: [],
       store,
-      total: [2, 3],
       sum: 0
     };
     
@@ -38,6 +37,20 @@ export default {
 };
 </script>
 <template>
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        Sei sicuro di voler svuotare il carrello?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="emptyCart">Svuota carrello</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- start header section -->
   <header>
@@ -78,6 +91,7 @@ export default {
         </div>
       </div>
     </nav>
+    
 
     <!-- offcanvas -->
     <div
@@ -118,7 +132,9 @@ export default {
         <p class="fw-bold text-danger" >Totale: {{ calculateTotal() }} €</p>
         <div class="d-flex flex-column align-items-center">
           <button type="button" class="btn btn-success my-2">Checkout</button>
-          <button type="button" class="btn btn-danger my-2" @click="emptyCart">Svuota Carrello</button>
+          <button v-if="store.cart.length" type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Svuota Carrello</button>
+
+
         </div>
       </div>
     </div>
@@ -170,4 +186,5 @@ button:hover .fa-cart-shopping {
 .offcanvas-header {
   border-color: #57a708 !important;
 }
+
 </style>

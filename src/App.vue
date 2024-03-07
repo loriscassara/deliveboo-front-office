@@ -153,7 +153,7 @@ export default {
 </script>
 
 <template>
-  <header class="p-0 sticky-top">
+  <header class="p-0">
     <AppHeader />
   </header>
   <main class="p-0">    <AppJumbo id="jumbo" />
