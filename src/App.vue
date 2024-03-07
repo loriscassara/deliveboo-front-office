@@ -173,21 +173,10 @@ main {
   overflow-x: hidden;
 }
 
-#jumbo {
-  position: relative;
-}
-
 #slider {
-  position: absolute;
-  bottom: 80px;
+  margin-top: -80px
 }
-
-#carousel {
-  position: absolute;
-  bottom: -80px;
-}
-
 .router {
-  padding-top: 300px;
+  padding-top: 50px;
 }
 </style>
