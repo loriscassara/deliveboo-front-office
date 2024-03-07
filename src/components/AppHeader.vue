@@ -98,26 +98,27 @@ export default {
         ></button>
       </div>
       <div class="offcanvas-body">
-        <h6 class="text-center fw-bold">I tuoi articoli</h6>
         <!-- ternario in cui se non c'è nulla compare "Il carrello è vuoto!" mentre se c'è roba viene "I tuoi articoli" -->
-        <p mt-4 v-if="!this.store.cart.length"> Non ci sono prodotti nel carrello</p>
-        <p v-else>I tuoi articoli:</p>
+        <p class="text-center fw-bold fst-italic" v-if="!this.store.cart.length"> Non ci sono prodotti nel carrello</p>
+        <p class="fw-bold text-center" v-else>I tuoi articoli:</p>
         <div v-for="item in store.cart">
         <div class="d-flex">
           <img src="" alt="">
           <div>
-            <h6>{{ item.name }}</h6>
-            <p>{{ item.price }} €</p>
-            <p>Qt. {{ item.quantity }}</p>
-            <button class="px-2" @click="(item.quantity) ? item.quantity-- : 0">-</button>
-            <button class="px-2" @click="item.quantity++">+</button>
-            <input class="w-25" type="text" :id="item.id" :name="item.name" :value="item.quantity * item.price">
+            <h6>Nome prodotto: {{ item.name }}</h6>
+            <p class="mb-1">Prezzo prodotto: {{ item.price }} €</p>
+            <p class="mb-1">Quantità: {{ item.quantity }}</p>
+            <div class="d-flex">
+            <button class="btn btn-outline-dark mx-1" @click="(item.quantity) ? item.quantity-- : 0">-</button>
+            <button class="btn btn-outline-dark mx-1" @click="item.quantity++">+</button>
+            </div>
+            <!-- <input class="w-25" type="text" :id="item.id" :name="item.name" :value="item.quantity * item.price"> -->
           </div>
         </div>
       </div>
         <hr>
-        <p class="fw-bold text-danger" >Totale: {{ calculateTotal() }} €</p>
-        <div class="d-flex flex-column align-items-center">
+        <p class="fw-bold text-danger text-center" >Totale: {{ calculateTotal() }} €</p>
+        <div class="d-flex flex-row align-items-center justify-content-between">
           <button type="button" class="btn btn-success my-2">Checkout</button>
           <button type="button" class="btn btn-danger my-2" @click="emptyCart">Svuota Carrello</button>
         </div>

@@ -106,9 +106,10 @@ export default {
   </div>  -->
 
 
-  <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante</h3>
+  <h3 class="my-5 text-center fw-bold text-uppercase">Piatti ristorante</h3>
 
-  <div class="container" v-for="product in restaurant?.products">
+  <div class="row justify-content-center">
+  <div class="container m-4" v-for="product in restaurant?.products">
   <div class="images">
     <img src="https://media.istockphoto.com/id/589415708/it/foto/frutta-fresca-e-verdura.jpg?s=612x612&w=0&k=20&c=hCaRSdjKzB4phEZRlYS9OPORCwrjiyHFSQ1jEGVnvB4=" />
   </div>
@@ -125,7 +126,8 @@ export default {
       </form>
     </div>
 </div>
-  <router-link :to="{ name: 'Restaurants' }" class="btn btn-outline-dark w-25 m-auto d-flex justify-content-center mt-5 mb-5">
+  </div>
+    <router-link :to="{ name: 'Restaurants' }" class="btn btn-outline-dark w-25 m-auto d-flex justify-content-center mt-5 mb-5">
     <span>Torna alla lista ristoranti</span>
   </router-link>
 </template>
@@ -135,10 +137,6 @@ export default {
 
 * {
   font-family: 'Montserrat';
-}
-
-h3 {
-  margin-top: 300px;
 }
 
 label {
