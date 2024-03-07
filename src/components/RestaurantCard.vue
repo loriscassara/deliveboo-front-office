@@ -26,7 +26,7 @@ export default {
         </div>
     </div> -->
 
-      <section class="card">
+      <section class="card mb-5">
     <div class="text-content rounded p-3">
       <h3>{{ item.business_name }}</h3>
       <p>{{ item.description }}</p> 

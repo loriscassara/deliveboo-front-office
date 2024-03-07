@@ -3,6 +3,7 @@ import AppHeader from "./components/AppHeader.vue";
 import AppJumbo from "./components/AppJumbo.vue";
 import AppSlider from "./components/AppSlider.vue";
 import AppCarousel from "./components/AppCarousel.vue";
+import AppFooter from "./components/AppFooter.vue";
 
 import axios from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
@@ -14,7 +15,8 @@ export default {
     AppJumbo,
     EventList,
     AppSlider,
-    AppCarousel
+    AppCarousel,
+    AppFooter
   },
   data() {
     return {
@@ -153,6 +155,7 @@ export default {
     <AppSlider id="slider" />
     <AppCarousel id="carousel" />
     <router-view class="router"></router-view>
+    <AppFooter />
   </main>
 </template>
 

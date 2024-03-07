@@ -44,7 +44,7 @@ export default {
       <h3 class="text-center fw-bold">Categorie ristoranti</h3>
       <TypesCard />
 
-      <div class="d-flex justify-content-center py-4">
+      <div class="d-flex justify-content-center pb-5">
       <div v-for="tag in store.types">
             <!-- <input type="checkbox" v-model="selectedTypes" :value="tag.id" @change="filteredRestaurants">
           {{ tag.name }} -->
@@ -58,12 +58,16 @@ export default {
 
 
 
-      <h3 class="text-center fw-bold pb-5">La lista dei nostri ristoranti:</h3>
+      <h3 class="text-center fw-bold pb-5">Lista ristoranti:</h3>
       <RestaurantCard v-for="restaurant in filteredRestaurants" :item="restaurant" />
     </div>
   </div>
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+* {
+  font-family: 'Montserrat';
+}
 </style>
