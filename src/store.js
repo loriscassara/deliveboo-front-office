@@ -11,6 +11,6 @@ export const store = reactive({
   type_list_restaurant: [],
   productList: [],
   filteredList: [],
-  chart:[],
+  cart:[],
   
 });

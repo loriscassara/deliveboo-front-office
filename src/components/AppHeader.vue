@@ -1,13 +1,52 @@
 <script>
+import { store } from "../store.js";
 export default {
   name: "AppHeader",
   data() {
     return {
       menuItems: [],
+      cart: [],
+      store,
+      totalPrice: 0 
+
     };
   },
+  mounted() {
+    //Recupera i dati dal localStorage
+    const cartFromLocalStorage = localStorage.getItem('cart');
+    // Verifica se ci sono dati memorizzati nel localStorage
+    if (cartFromLocalStorage) {
+      // Converte la stringa JSON in un oggetto JavaScript
+      this.cart = JSON.parse(cartFromLocalStorage);
+      console.log("cart mounted", this.cart)
+    }
+    this.totalPrice = this.calculateTotalPrice();
+
+  },
+  methods: {
+    clearCart() {
+      this.store.cart = [];
+      // Aggiorna il carrello nel localStorage
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+
+    },
+    calculateTotalPrice() {
+      let totalPrice = 0;
+      this.store.cart.forEach(product => {
+        totalPrice = product.quantity * product.price;
+      });
+      return totalPrice;
+    }
+
+  },
+  computed: {
+
+
+
+  }
 };
 </script>
+
 <template>
 
   <!-- start header section -->
@@ -17,31 +56,23 @@ export default {
     <nav class="navbar px-5">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img
-            id="nav-logo"
-            src="/public/images/png-logo.png"
-            alt="Bootstrap"
-          />
+          <img id="nav-logo" src="/public/images/png-logo.png" alt="Bootstrap" />
         </a>
         <div>
 
           <!-- dropdown to back-office -->
-          <button type="button" class="btn btn-outline-light dropdown-center mx-2 rounded-circle p-2 border-2" data-bs-toggle="dropdown" aria-expanded="false">
+          <button type="button" class="btn btn-outline-light dropdown-center mx-2 rounded-circle p-2 border-2"
+            data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user mx-1"></i>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Login</a></li>
-                <li><a class="dropdown-item" href="#">Registrati</a></li>
-              </ul>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#">Login</a></li>
+              <li><a class="dropdown-item" href="#">Registrati</a></li>
+            </ul>
           </button>
 
 
-          <button
-            type="button"
-            class="btn btn-outline-light mx-2 border-2 position-relative"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight"
-          >
+          <button type="button" class="btn btn-outline-light mx-2 border-2 position-relative" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
             <i class="fa-solid fa-cart-shopping text-light"></i>
             <div class="dot"></div>
           </button>
@@ -50,27 +81,30 @@ export default {
     </nav>
 
     <!-- offcanvas -->
-    <div
-      class="offcanvas offcanvas-end"
-      tabindex="-1"
-      id="offcanvasRight"
-      aria-labelledby="offcanvasRightLabel"
-    >
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header border-3 border-bottom">
         <h5 class="offcanvas-title fw-bold" id="offcanvasRightLabel">
           Il mio carello
         </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <h6 class="text-center fw-bold">I tuoi articoli</h6>
+        <div v-for="item in store.cart" :key="item">
+          <ul>
+            <li class="list-group-item ">
+              <i class="fa fa-bookmark"></i>  {{ item.name}}
+              <span class="badge text-bg-primary rounded-pill">{{ item.quantity }}</span>
+            <li class="list-group-item ">Prezzo: {{ item.price }}€</li>
+            <li class="list-group-item ">Prezzo prodotti {{ item.totalPrice }}€</li>
+
+
+            </li>
+          </ul>
+
+        </div>
         <!-- ternario in cui se non c'è nulla compare "Il carrello è vuoto!" mentre se c'è roba viene "I tuoi articoli" -->
-        
+
         <!-- <div class="d-flex">
           <img src="" alt="">
           <div>
@@ -80,10 +114,10 @@ export default {
         </div> -->
 
         <hr />
-        <p class="fw-bold text-danger">Totale:</p>
+        <p class="fw-bold text-danger">Totale: {{ totalPrice }} </p>
         <div class="d-flex flex-column align-items-center">
           <button type="button" class="btn btn-success my-2">Checkout</button>
-          <button type="button" class="btn btn-danger my-2">Svuota Carrello</button>
+          <button type="button" class="btn btn-danger my-2" @click="clearCart">Svuota Carrello</button>
         </div>
       </div>
     </div>
@@ -92,12 +126,12 @@ export default {
   <!-- end header section -->
 
 </template>
+
 <style scoped lang="scss">
-
-
 .navbar {
   background-image: url(/public/images/nav.jpg);
 }
+
 #nav-logo {
   width: 6rem;
   height: 6rem;
@@ -113,19 +147,25 @@ export default {
   top: -0.5rem;
 }
 
-.offcanvas {width: 20% !important;}
+.offcanvas {
+  width: 20% !important;
+}
 
 .offcanvas-header {
   background-image: url(/public/images/health-food-healthy-diet-diabetes-mellitus-movie-set-meal-122c7c38808c03a9d3eb4c009e8f84ba.png);
   background-size: 77%;
   background-position-x: right;
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
 }
+
 button:hover .fa-cart-shopping {
   filter: invert(1);
 }
 
-.btn-success, .btn-danger { width: 40%;}
+.btn-success,
+.btn-danger {
+  width: 40%;
+}
 
 .offcanvas-header {
   border-color: #57a708 !important;

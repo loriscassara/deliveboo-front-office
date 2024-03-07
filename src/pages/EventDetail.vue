@@ -62,23 +62,25 @@ export default {
         });
     },
     addToCart(product) {
-      const existingProduct = this.cart.find(item => item.id === product.id);
+      const existingProduct = this.store.cart.find(item => item.id === product.id);
       if (existingProduct) {
         existingProduct.quantity += product.quantity;
       } else {
-        this.cart.push({
+        const newProduct = {
           id: product.id,
           name: product.name,
           quantity: product.quantity,
-          price: product.price
-        });
+          price: product.price,
+          totalPrice: product.quantity * product.price
+
+        };
+        this.store.cart.push(newProduct);
+
       }
       // Aggiorna il carrello nello storage o nella sessione, ad esempio localStorage o sessionStorage
       localStorage.setItem('cart', JSON.stringify(this.cart));
-      console.log("card: ", this.cart)
+      console.log("card: ", this.store.cart)
     },
-    // Altri metodi per rimuovere prodotti dal carrello, svuotare il carrello, etc.
-
 
   },
 };
@@ -89,7 +91,7 @@ export default {
   <div class="container">
     <div class="row">
       <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante</h3>
-       <div class="m-4" v-for="product in restaurant?.products">
+      <div class="m-4" v-for="product in restaurant?.products">
         <h5>{{ product.name }}</h5>
         <h5>{{ product.description }}</h5>
         <h5>prezzo: {{ product.price }} €</h5>
@@ -109,9 +111,7 @@ export default {
         <span>Torna alla lista ristoranti</span>
       </router-link>
     </div>
-  </div> 
+  </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
