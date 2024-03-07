@@ -1,6 +1,9 @@
 <script>
 import AppHeader from "./components/AppHeader.vue";
 import AppJumbo from "./components/AppJumbo.vue";
+import AppSlider from "./components/AppSlider.vue";
+import AppCarousel from "./components/AppCarousel.vue";
+import AppFooter from "./components/AppFooter.vue";
 
 import axios from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
@@ -11,6 +14,9 @@ export default {
     AppHeader,
     AppJumbo,
     EventList,
+    AppSlider,
+    AppCarousel,
+    AppFooter
   },
   data() {
     return {
@@ -21,6 +27,11 @@ export default {
     this.doThings();
     this.getRestaurantList();
     this.getTypesList();
+    //LocalStorage per salvataggio browser item nel carrello.
+		const cart = localStorage.getItem('cart');
+		if (cart) {
+			this.store.cart = JSON.parse(cart);
+		}
 
     // axios.get("indirizzo").then(risultato => {
     // 	console.log(risultato);
@@ -41,6 +52,7 @@ export default {
           if (result.status === 200) {
             if (result.data.success) {
               this.store.restaurantsList = result.data.payload;
+			  console.log("risposta restaurants:", this.store.restaurantsList)
             } else {
               console.error(
                 "Ops... non siamo in grado di soddisfare la richiesta."
@@ -109,8 +121,8 @@ export default {
         .then((result) => {
           if (result.status === 200) {
             if (result.data.success) {
-              this.store.filteredList = result.data.payload;
-              console.log(this.store.filteredList);
+              this.store.filteredList = result.data;
+              console.log("risultato list types: ", this.store.filteredList);
             } else {
               console.error(
                 "Ops... non siamo in grado di soddisfare la richiesta."
@@ -144,9 +156,11 @@ export default {
   <header class="p-0 sticky-top">
     <AppHeader />
   </header>
-  <main class="p-0">
-    <AppJumbo />
-    <router-view></router-view>
+  <main class="p-0">    <AppJumbo id="jumbo" />
+    <AppSlider id="slider" />
+    <AppCarousel id="carousel" />
+    <router-view class="router"></router-view>
+    <AppFooter />
   </main>
 </template>
 
@@ -164,4 +178,10 @@ main {
   overflow-x: hidden;
 }
 
+#slider {
+  margin-top: -80px
+}
+.router {
+  padding-top: 50px;
+}
 </style>

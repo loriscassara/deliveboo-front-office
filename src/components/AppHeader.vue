@@ -1,11 +1,40 @@
 <script>
+import { store } from "../store.js"; //
 export default {
   name: "AppHeader",
   data() {
     return {
       menuItems: [],
+      store,
+      total: [2, 3],
+      sum: 0
     };
+    
   },
+  methods: {
+    emptyCart() {
+      this.store.cart = [];
+      // Aggiorna il carrello nel localStorage
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
+    },
+    calculateTotal() {
+      let total = 0;
+      this.store.cart.forEach(item => {
+        total += item.price * item.quantity;
+      });
+      return total;
+    }
+    },
+    computed: {
+//       totalSum() {
+
+// for (let i = 0; i < this.total.length; i++) {
+//   this.sum += Number(this.total[i]);
+// }
+//   console.log(this.sum);
+// }
+
+    }
 };
 </script>
 <template>
@@ -16,7 +45,7 @@ export default {
     <!-- navbar -->
     <nav class="navbar px-5">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="http://localhost:5173/">
           <img
             id="nav-logo"
             src="/public/images/png-logo.png"
@@ -71,20 +100,26 @@ export default {
       <div class="offcanvas-body">
         <h6 class="text-center fw-bold">I tuoi articoli</h6>
         <!-- ternario in cui se non c'è nulla compare "Il carrello è vuoto!" mentre se c'è roba viene "I tuoi articoli" -->
-        
-        <!-- <div class="d-flex">
+        <p mt-4 v-if="!this.store.cart.length"> Non ci sono prodotti nel carrello</p>
+        <p v-else>I tuoi articoli:</p>
+        <div v-for="item in store.cart">
+        <div class="d-flex">
           <img src="" alt="">
           <div>
-            <h6>{{ product.name }}</h6>
-            <p>{{ prduct.price }}</p>
+            <h6>{{ item.name }}</h6>
+            <p>{{ item.price }} €</p>
+            <p>Qt. {{ item.quantity }}</p>
+            <button class="px-2" @click="(item.quantity) ? item.quantity-- : 0">-</button>
+            <button class="px-2" @click="item.quantity++">+</button>
+            <input class="w-25" type="text" :id="item.id" :name="item.name" :value="item.quantity * item.price">
           </div>
-        </div> -->
-
-        <hr />
-        <p class="fw-bold text-danger">Totale:</p>
+        </div>
+      </div>
+        <hr>
+        <p class="fw-bold text-danger" >Totale: {{ calculateTotal() }} €</p>
         <div class="d-flex flex-column align-items-center">
           <button type="button" class="btn btn-success my-2">Checkout</button>
-          <button type="button" class="btn btn-danger my-2">Svuota Carrello</button>
+          <button type="button" class="btn btn-danger my-2" @click="emptyCart">Svuota Carrello</button>
         </div>
       </div>
     </div>
