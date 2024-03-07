@@ -8,9 +8,7 @@ export default {
       menuItems: [],
       cart: [],
       store,
-      totalPrice: 0 
-
-      store,
+      totalPrice: 0,
       total: [2, 3],
       sum: 0
     };
