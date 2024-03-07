@@ -1,6 +1,7 @@
 <script>
 import { store } from "../store.js";
 import axios from "axios";
+
 export default {
   name: "EventDetail",
   props: ["id"],
@@ -8,24 +9,12 @@ export default {
     return {
       store,
       restaurant: null,
-      counter: 0,
-      cart: [],
-      messaggio: "",
+      messaggioVisibile: false, // Mantenimento della variabile messaggioVisibile
+      erroreVisibile: false
     };
   },
   mounted() {
-    // this.event = this.store.eventList.find(item => item.id == this.id);
     this.getEventDetail();
-
-  },
-  computed: {
-    prova() {
-      console.log("counter: ", this.counter)
-
-    }
-
-
-
   },
   methods: {
     getEventDetail() {
@@ -67,25 +56,35 @@ export default {
       if (existingProduct) {
         existingProduct.quantity += product.quantity;
       } else {
+        if (this.store.cart.length > 0 && product.restaurant_id !== this.store.cart[0]?.restaurantId ) {
+          this.mostraErrore();
+          return;
+        }
         this.store.cart.push({
           id: product.id,
+          restaurantId: product.restaurant_id,
           name: product.name,
           quantity: product.quantity,
           price: product.price
         });
+        // Mostra il messaggio di conferma
+        this.mostraMessaggio();
       }
-      // Aggiorna il carrello nello storage o nella sessione, ad esempio localStorage o sessionStorage
       localStorage.setItem('cart', JSON.stringify(this.store.cart));
-      console.log("card: ", this.cart)
     },
-    // Altri metodi per rimuovere prodotti dal carrello, svuotare il carrello, etc.
-    msgCart(product) {
-      if (product.quantity) {
-        return this.messaggio = `Hai aggiunto ${product.quantity} ${product.name} al carrello.`;
-      }
-    }
-
-  },
+    mostraErrore() {
+      this.erroreVisibile = true;
+    },
+    nascondiErrore() {
+      this.erroreVisibile = false;
+    },
+    mostraMessaggio() {
+      this.messaggioVisibile = true;
+      setTimeout(() => {
+        this.messaggioVisibile = false;
+      }, 1500);
+    },
+  }
 };
 </script>
 
@@ -109,28 +108,66 @@ export default {
       </router-link>
     </div>
   </div>  -->
+<!-- Modale per messaggio di errore -->
+<div class="modal" :class="{ 'show': erroreVisibile }">
+    <div class="modal-dialog">
+      <div class="modal-content modal-error">
+        <div class="modal-body ">
+          Non puoi aggiungere prodotti da ristoranti diversi nello stesso ordine! <br>
+          COGLIONE!!!!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click="nascondiErrore">Ok scusa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
-
-  <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante</h3>
+  <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante "{{ restaurant?.business_name }}"</h3>
 
   <div class="container" v-for="product in restaurant?.products">
-  <div class="images">
-    <img src="https://media.istockphoto.com/id/589415708/it/foto/frutta-fresca-e-verdura.jpg?s=612x612&w=0&k=20&c=hCaRSdjKzB4phEZRlYS9OPORCwrjiyHFSQ1jEGVnvB4=" />
-  </div>
-  <div class="product">
-    <h1>{{ product.name }}</h1>
-    <h2>{{ product.price }} €</h2>
-    <p class="desc">{{ product.description }}</p>
-  </div>
+      <div class="images">
+      <img src="https://media.istockphoto.com/id/589415708/it/foto/frutta-fresca-e-verdura.jpg?s=612x612&w=0&k=20&c=hCaRSdjKzB4phEZRlYS9OPORCwrjiyHFSQ1jEGVnvB4=" />
+      </div>
+      <div class="product">
+        <h1>{{ product.name }}</h1>
+        <h2>{{ product.price }} €</h2>
+        <p class="desc">{{ product.description }}</p>
+        
+      </div>
       <div class="buttons pt-4">
       <form class="d-flex justify-content-between align-items-center" @submit.prevent="addToCart(product)">
-        <label class="m-0" :for="product.id">Seleziona quantità:</label>
+        <div class="d-flex justify-content-between align-items-center">
+        <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
         <input class="input-group-text mb-2" type="number" :id="product.id" name="quantity" min="1" max="20" v-model="product.quantity">
-        <button type="submit" @click="msgCart(product)">Aggiungi</button>
+      </div>
+        <button type="submit" @click="aggiungiAlCarrello">Aggiungi al carrello</button>
+
       </form>
+      <!-- <div v-for="item in store.cart">
+        <div class="">
+          <div>
+            <p class="d-inline me-3">Quantità selezionata: {{ item.quantity }}</p>
+            <button class="me-2" @click="(item.quantity) ? item.quantity-- : 0">-</button>
+            <button class="" @click="item.quantity++">+</button>
+          </div>
+        </div>
+      </div> -->
+      <!-- Modale per messaggio di aggiunta al carrello -->
+      <div class="modal" :class="{ 'show': messaggioVisibile }">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            Oggetto aggiunto al carrello!
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
 </div>
-<!-- <h5 v-if="messaggio">{{ messaggio }}</h5>  da fixare e posizionare-->
+
+<h5 v-if="messaggio">{{ messaggio }}</h5>
   <router-link :to="{ name: 'Restaurants' }" class="btn btn-outline-dark w-25 m-auto d-flex justify-content-center mt-5 mb-5">
     <span>Torna alla lista ristoranti</span>
   </router-link>
@@ -268,5 +305,42 @@ button {
 .focus{
   background: #0a0a0a;
   color: #F5F5F5;
+}
+
+//prove dario
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  position: relative;
+  background-color: #15ff00;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  font-weight: 600;
+}
+.modal-error {
+  position: relative;
+  background-color: #ff0000;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  font-weight: 600;
+}
+
+.show {
+  display: block !important;
 }
 </style>
