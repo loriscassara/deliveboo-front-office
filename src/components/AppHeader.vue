@@ -54,11 +54,11 @@ export default {
         </a>
         <div>
 
-          <!-- dropdown to back-office -->
           <button type="button" class="btn btn-outline-light mx-2 rounded-circle p-2 border-2" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user mx-1"></i>
           </button>
           
+          <!-- dropdown to back-office -->
           <div class="dropdown-menu dropdown-menu-end">
                 <a class="dropdown-item" href="http://127.0.0.1:8000/login">Login</a>
                 <a class="dropdown-item" href="http://127.0.0.1:8000/register">Registrati</a>
