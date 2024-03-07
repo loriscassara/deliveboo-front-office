@@ -25,6 +25,9 @@ export default {
     }
     },
     computed: {
+      cartQuantity() {
+      return this.store.cart.reduce((total, product) => total + product.quantity, 0);
+    }
 //       totalSum() {
 
 // for (let i = 0; i < this.total.length; i++) {
@@ -87,7 +90,7 @@ export default {
             aria-controls="offcanvasRight"
           >
             <i class="fa-solid fa-cart-shopping text-light"></i>
-            <div class="dot" v-if="this.store.cart.length"></div>
+            <div class="dot" v-if="this.store.cart.length"> {{ cartQuantity }}</div>
           </button>
         </div>
       </div>
