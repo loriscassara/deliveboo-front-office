@@ -85,7 +85,7 @@ export default {
 
 .logos-slide {
   display: inline-block;
-  animation: 2000s slide infinite linear;
+  animation: 1000s slide infinite linear;
 }
 
 .logos-slide img {

@@ -3,6 +3,7 @@ import AppHeader from "./components/AppHeader.vue";
 import AppJumbo from "./components/AppJumbo.vue";
 import AppSlider from "./components/AppSlider.vue";
 import AppCarousel from "./components/AppCarousel.vue";
+import AppFooter from "./components/AppFooter.vue";
 
 import axios from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
@@ -14,7 +15,8 @@ export default {
     AppJumbo,
     EventList,
     AppSlider,
-    AppCarousel
+    AppCarousel,
+    AppFooter
   },
   data() {
     return {
@@ -25,6 +27,11 @@ export default {
     this.doThings();
     this.getRestaurantList();
     this.getTypesList();
+    //LocalStorage per salvataggio browser item nel carrello.
+		const cart = localStorage.getItem('cart');
+		if (cart) {
+			this.store.cart = JSON.parse(cart);
+		}
 
     // axios.get("indirizzo").then(risultato => {
     // 	console.log(risultato);
@@ -153,6 +160,7 @@ export default {
     <AppSlider id="slider" />
     <AppCarousel id="carousel" />
     <router-view class="router"></router-view>
+    <AppFooter />
   </main>
 </template>
 
@@ -170,21 +178,10 @@ main {
   overflow-x: hidden;
 }
 
-#jumbo {
-  position: relative;
-}
-
 #slider {
-  position: absolute;
-  bottom: 80px;
+  margin-top: -80px
 }
-
-#carousel {
-  position: absolute;
-  bottom: -80px;
-}
-
 .router {
-  padding-top: 300px;
+  padding-top: 50px;
 }
 </style>

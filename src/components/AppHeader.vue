@@ -1,5 +1,6 @@
 <script>
 import { store } from "../store.js";
+import { store } from "../store.js"; //
 export default {
   name: "AppHeader",
   data() {
@@ -9,41 +10,36 @@ export default {
       store,
       totalPrice: 0 
 
+      store,
+      total: [2, 3],
+      sum: 0
     };
-  },
-  mounted() {
-    //Recupera i dati dal localStorage
-    const cartFromLocalStorage = localStorage.getItem('cart');
-    // Verifica se ci sono dati memorizzati nel localStorage
-    if (cartFromLocalStorage) {
-      // Converte la stringa JSON in un oggetto JavaScript
-      this.cart = JSON.parse(cartFromLocalStorage);
-      console.log("cart mounted", this.cart)
-    }
-    this.totalPrice = this.calculateTotalPrice();
-
+    
   },
   methods: {
-    clearCart() {
+    emptyCart() {
       this.store.cart = [];
       // Aggiorna il carrello nel localStorage
-      localStorage.setItem('cart', JSON.stringify(this.cart));
-
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
     },
-    calculateTotalPrice() {
-      let totalPrice = 0;
-      this.store.cart.forEach(product => {
-        totalPrice = product.quantity * product.price;
+    calculateTotal() {
+      let total = 0;
+      this.store.cart.forEach(item => {
+        total += parseFloat((item.price * item.quantity).toFixed(2));
       });
-      return totalPrice;
+      return total;
     }
+    },
+    computed: {
+//       totalSum() {
 
-  },
-  computed: {
+// for (let i = 0; i < this.total.length; i++) {
+//   this.sum += Number(this.total[i]);
+// }
+//   console.log(this.sum);
+// }
 
-
-
-  }
+    }
 };
 </script>
 
@@ -55,26 +51,29 @@ export default {
     <!-- navbar -->
     <nav class="navbar px-5">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img id="nav-logo" src="/public/images/png-logo.png" alt="Bootstrap" />
+        <a class="navbar-brand" href="http://localhost:5173/">
+          <img
+            id="nav-logo"
+            src="/public/images/png-logo.png"
+            alt="Bootstrap"
+          />
         </a>
         <div>
 
-          <!-- dropdown to back-office -->
-          <button type="button" class="btn btn-outline-light dropdown-center mx-2 rounded-circle p-2 border-2"
-            data-bs-toggle="dropdown" aria-expanded="false">
+          <button type="button" class="btn btn-outline-light mx-2 rounded-circle p-2 border-2" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user mx-1"></i>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">Login</a></li>
-              <li><a class="dropdown-item" href="#">Registrati</a></li>
-            </ul>
           </button>
 
 
-          <button type="button" class="btn btn-outline-light mx-2 border-2 position-relative" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <button
+            type="button"
+            class="btn btn-outline-light mx-2 border-2 position-relative"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+          >
             <i class="fa-solid fa-cart-shopping text-light"></i>
-            <div class="dot"></div>
+            <div class="dot" v-if="this.store.cart.length"></div>
           </button>
         </div>
       </div>
@@ -104,20 +103,25 @@ export default {
 
         </div>
         <!-- ternario in cui se non c'è nulla compare "Il carrello è vuoto!" mentre se c'è roba viene "I tuoi articoli" -->
-
-        <!-- <div class="d-flex">
+        <p mt-4 v-if="!this.store.cart.length"> Non ci sono prodotti nel carrello</p>
+        <p v-else>I tuoi articoli:</p>
+        <div v-for="item in store.cart">
+        <div class="d-flex">
           <img src="" alt="">
           <div>
-            <h6>{{ product.name }}</h6>
-            <p>{{ prduct.price }}</p>
+            <h6>{{ item.name }}</h6>
+            <p>{{ item.price }} €</p>
+            <p>Qt. {{ item.quantity }}</p>
+            <button class="px-2" @click="(item.quantity) ? item.quantity-- : 0">-</button>
+            <button class="px-2" @click="item.quantity++">+</button>
           </div>
-        </div> -->
-
-        <hr />
-        <p class="fw-bold text-danger">Totale: {{ totalPrice }} </p>
+        </div>
+      </div>
+        <hr>
+        <p class="fw-bold text-danger" >Totale: {{ calculateTotal() }} €</p>
         <div class="d-flex flex-column align-items-center">
           <button type="button" class="btn btn-success my-2">Checkout</button>
-          <button type="button" class="btn btn-danger my-2" @click="clearCart">Svuota Carrello</button>
+          <button type="button" class="btn btn-danger my-2" @click="emptyCart">Svuota Carrello</button>
         </div>
       </div>
     </div>
@@ -135,6 +139,11 @@ export default {
 #nav-logo {
   width: 6rem;
   height: 6rem;
+}
+
+.dropdown-menu {
+  top: 75% !important;
+  right: 8% !important;
 }
 
 .dot {
