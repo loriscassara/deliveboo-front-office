@@ -26,13 +26,14 @@ export default {
         <div>
 
           <!-- dropdown to back-office -->
-          <button type="button" class="btn btn-outline-light dropdown-center mx-2 rounded-circle p-2 border-2" data-bs-toggle="dropdown" aria-expanded="false">
+          <button type="button" class="btn btn-outline-light mx-2 rounded-circle p-2 border-2" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user mx-1"></i>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Login</a></li>
-                <li><a class="dropdown-item" href="#">Registrati</a></li>
-              </ul>
           </button>
+          
+          <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item" href="http://127.0.0.1:8000/login">Login</a>
+                <a class="dropdown-item" href="http://127.0.0.1:8000/register">Registrati</a>
+          </div>
 
 
           <button
@@ -101,6 +102,11 @@ export default {
 #nav-logo {
   width: 6rem;
   height: 6rem;
+}
+
+.dropdown-menu {
+  top: 75% !important;
+  right: 8% !important;
 }
 
 .dot {
