@@ -74,7 +74,7 @@ export default {
           price: product.price,
           totalPrice: product.quantity * product.price
 
-        };
+        });
         this.store.cart.push(newProduct);
 
       }
