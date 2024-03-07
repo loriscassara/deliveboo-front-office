@@ -62,11 +62,11 @@ export default {
         });
     },
     addToCart(product) {
-      const existingProduct = this.cart.find(item => item.id === product.id);
+      const existingProduct = this.store.cart.find(item => item.id === product.id);
       if (existingProduct) {
         existingProduct.quantity += product.quantity;
       } else {
-        this.cart.push({
+        this.store.cart.push({
           id: product.id,
           name: product.name,
           quantity: product.quantity,
@@ -74,7 +74,7 @@ export default {
         });
       }
       // Aggiorna il carrello nello storage o nella sessione, ad esempio localStorage o sessionStorage
-      localStorage.setItem('cart', JSON.stringify(this.cart));
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
       console.log("card: ", this.cart)
     },
     // Altri metodi per rimuovere prodotti dal carrello, svuotare il carrello, etc.
