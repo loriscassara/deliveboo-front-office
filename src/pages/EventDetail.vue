@@ -116,8 +116,7 @@ export default {
     <div class="modal-dialog">
       <div class="modal-content modal-error">
         <div class="modal-body ">
-          Non puoi aggiungere prodotti da ristoranti diversi nello stesso ordine! <br>
-          COGLIONE!!!!
+          Non puoi aggiungere prodotti da ristoranti diversi nello stesso ordine!
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="nascondiErrore">Ok scusa</button>
@@ -129,7 +128,8 @@ export default {
 
   <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante "{{ restaurant?.business_name }}"</h3>
 
-  <div class="container" v-for="product in restaurant?.products">
+  <div class="row justify-content-center">
+  <div class="container m-2" v-for="product in restaurant?.products">
       <div class="images">
       <img src="https://media.istockphoto.com/id/589415708/it/foto/frutta-fresca-e-verdura.jpg?s=612x612&w=0&k=20&c=hCaRSdjKzB4phEZRlYS9OPORCwrjiyHFSQ1jEGVnvB4=" />
       </div>
@@ -148,6 +148,7 @@ export default {
         <button type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
 
       </form>
+      </div>
       <!-- <div v-for="item in store.cart">
         <div class="">
           <div>
