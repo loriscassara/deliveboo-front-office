@@ -91,7 +91,10 @@ export default {
   },
   
 };
-document.getElementById('dropdownButton').addEventListener('click', function() {
+
+const dropBtn = document.getElementById('dropdownButton');
+if (dropBtn) {
+  document.getElementById('dropdownButton').addEventListener('click', function() {
       // Aggiungi la classe 'show' alla dropdown
       document.querySelector('.dropdown').classList.add('show');
 
@@ -100,6 +103,9 @@ document.getElementById('dropdownButton').addEventListener('click', function() {
         document.querySelector('.dropdown').classList.remove('show');
       }, 1000);
     });
+}
+
+
 </script>
 
 
