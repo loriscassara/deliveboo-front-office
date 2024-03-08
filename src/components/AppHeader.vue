@@ -28,7 +28,7 @@ export default {
       localStorage.setItem('cart', JSON.stringify(this.store.cart));
     },
     cartAddItemQuantity(item) {
-      (item.quantity<20) ? item.quantity++ : 0;
+      item.quantity++;
       localStorage.setItem('cart', JSON.stringify(this.store.cart));
     }
 
