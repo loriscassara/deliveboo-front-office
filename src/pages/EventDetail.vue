@@ -110,31 +110,13 @@ if (dropBtn) {
 
 
 <template>
-  <!-- <div class="container">
-    <div class="row">
-      <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante</h3>
-       <div class="m-4" v-for="product in restaurant?.products">
-        <h5>{{ product.name }}</h5>
-        <h5>{{ product.description }}</h5>
-        <h5>prezzo: {{ product.price }} €</h5>
-        <form @submit.prevent="addToCart(product)">
-          <label :for="product.id">Seleziona quantità:</label>
-          <input type="number" :id="product.id" name="quantity" min="1" max="20" v-model="product.quantity">
-          <button type="submit">Aggiungi al carrello</button>
-        </form>
-      </div>
-      <router-link :to="{ name: 'Restaurants' }" class="btn btn-primary w-25 m-auto">
-        <span>Torna alla lista ristoranti</span>
-      </router-link>
-    </div>
-  </div>  -->
+  
 <!-- Modale per messaggio di errore -->
 <div class="modal" :class="{ 'show': erroreVisibile }">
     <div class="modal-dialog">
       <div class="modal-content modal-error">
         <div class="modal-body ">
           Non puoi aggiungere prodotti da ristoranti diversi nello stesso ordine! <br>
-          COGLIONE!!!!
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="nascondiErrore">Ok scusa</button>
@@ -160,20 +142,12 @@ if (dropBtn) {
       <form class="d-flex justify-content-between align-items-center" @submit.prevent="addToCart(product)">
         <div class="d-flex justify-content-between align-items-center">
         <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
-        <input class="input-group-text mb-2" type="number" :id="product.id" name="quantity" min="1" max="20" v-model="product.quantity">
+        <input class="input-group-text mb-2" type="number" :id="product.id" name="quantity" min="1" max="" v-model="product.quantity">
       </div>
         <button id="dropdownButton" type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
 
       </form>
-      <!-- <div v-for="item in store.cart">
-        <div class="">
-          <div>
-            <p class="d-inline me-3">Quantità selezionata: {{ item.quantity }}</p>
-            <button class="me-2" @click="(item.quantity) ? item.quantity-- : 0">-</button>
-            <button class="" @click="item.quantity++">+</button>
-          </div>
-        </div>
-      </div> -->
+      
       <!-- Modale per messaggio di aggiunta al carrello -->
       <div class="modal" :class="{ 'show': messaggioVisibile }">
       <div class="modal-dialog">
