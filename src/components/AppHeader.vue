@@ -22,6 +22,10 @@ export default {
         total += parseFloat((item.price * item.quantity).toFixed(2));
       });
       return total;
+    },
+    deleteItemFromCart(item) {
+        this.store.cart.splice(item, 1);
+        localStorage.setItem('cart', JSON.stringify(this.store.cart));
     }
     },
     computed: {
@@ -123,15 +127,17 @@ export default {
             <h6>{{ item.name }}</h6>
             <p>{{ item.price }} €</p>
             <p>Qt. {{ item.quantity }}</p>
-            <button class="px-2" @click="(item.quantity) ? item.quantity-- : 0">-</button>
+            <button class="px-2 me-2" @click="(item.quantity>1) ? item.quantity-- : 0">-</button>
             <button class="px-2" @click="item.quantity++">+</button>
+            <button class="px-2  ms-4 bg-danger text-white" @click="deleteItemFromCart(item)">Rimuovi</button>
           </div>
         </div>
       </div>
         <hr>
         <p class="fw-bold text-danger" >Totale: {{ calculateTotal() }} €</p>
         <div class="d-flex flex-column align-items-center">
-          <button type="button" class="btn btn-success my-2">Checkout</button>
+          <router-link class="btn btn-success my-2" to="/checkout">Checkout</router-link>
+          <!-- <button type="button" class="btn btn-success my-2">Checkout</button> -->
           <button v-if="store.cart.length" type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Svuota Carrello</button>
 
 

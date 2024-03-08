@@ -154,13 +154,14 @@ export default {
 
 <template>
   <header class="p-0">
-    <AppHeader />
+    <AppHeader v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered' ].indexOf($route.name) > -1"/>
   </header>
-  <main class="p-0">    <AppJumbo id="jumbo" />
-    <AppSlider id="slider" />
-    <AppCarousel id="carousel" />
+  <main class="p-0">
+    <AppJumbo v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered' ].indexOf($route.name) > -1" id="jumbo" />
+    <AppSlider v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered' ].indexOf($route.name) > -1" id="slider" />
+    <AppCarousel v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered' ].indexOf($route.name) > -1" id="carousel" />
     <router-view class="router"></router-view>
-    <AppFooter />
+    <AppFooter  />
   </main>
 </template>
 

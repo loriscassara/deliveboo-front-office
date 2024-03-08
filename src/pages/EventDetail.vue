@@ -87,8 +87,19 @@ export default {
         this.messaggioVisibile = false;
       }, 1500);
     },
-  }
+    
+  },
+  
 };
+document.getElementById('dropdownButton').addEventListener('click', function() {
+      // Aggiungi la classe 'show' alla dropdown
+      document.querySelector('.dropdown').classList.add('show');
+
+      // Rimuovi la classe 'show' dopo 2 secondi
+      setTimeout(function() {
+        document.querySelector('.dropdown').classList.remove('show');
+      }, 1000);
+    });
 </script>
 
 
@@ -145,7 +156,7 @@ export default {
         <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
         <input class="input-group-text mb-2" type="number" :id="product.id" name="quantity" min="1" max="20" v-model="product.quantity">
       </div>
-        <button type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
+        <button id="dropdownButton" type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
 
       </form>
       <!-- <div v-for="item in store.cart">
