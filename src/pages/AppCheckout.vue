@@ -1,62 +1,102 @@
-<script>
-import { store } from "../store";
-export default {
-    name: "AppCheckout",
-    data() {  
-    return {
-      store,
-    
-    };
-  },
-  computed: {
-        
-    },
-    methods:{
-      
-    }
-  
-}
-
-
-
-</script>
-
 <template>
-
-<div>
-    <h2>Checkout Carrello</h2>
-    <form >
-       <div class="mb-3">
-        <label for="firstName" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="firstName" v-model="firstName" required>
-      </div>
-      <div class="mb-3">
-        <label for="lastName" class="form-label">Cognome</label>
-        <input type="text" class="form-control" id="lastName" v-model="lastName" required>
-      </div>
-      <div class="mb-3">
-        <label for="phone" class="form-label">Telefono</label>
-        <input type="tel" class="form-control" id="phone" v-model="phone" required>
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" v-model="email" required>
-      </div>
-      <div class="mb-3">
-        <label for="address" class="form-label">Indirizzo</label>
-        <input type="text" class="form-control" id="address" v-model="address" required>
-      </div>
-      <div class="mb-3">
-        <label for="note" class="form-label">Nota</label>
-        <textarea class="form-control" id="note" v-model="note"></textarea>
-      </div>
-      <button  class="btn btn-primary">Conferma Ordine</button>
-    </form>
-  </div>
+    <div class="myDiv">
+      <h2 class="text-center">Checkout</h2>
+      <table class="table table-dark table-striped w-75 m-auto">
+    <thead>
+      <tr>
+        <th scope="col">Prodotto</th>
+        <th scope="col">Quantità</th>
+        <th scope="col">Prezzo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(item, index) in store.cart" :key="index">
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+          </tr>
+    </tbody>
+  </table>
+  
+      <h3 class="m-3 w-75 m-auto">Totale: {{ total }}</h3>
+  
+      <form @submit.prevent="submitOrder">
 
 
-</template>
 
-<style scoped lang="scss">
 
-</style>
+        <table class="table table-dark table-striped w-75 m-auto">
+    <thead>
+      <tr>
+        <th scope="col"><label for="card-number">Numero carta di credito:</label></th>
+        <th scope="col"><label for="expiration-date">Data di scadenza:</label></th>
+        <th scope="col"><label for="expiration-date">Data di scadenza:</label></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+            <td>
+              <input type="text" id="card-number" v-model="cardNumber">
+            </td>
+            <td>
+              <input type="text" id="expiration-date" v-model="expirationDate">
+            </td>
+            <td>
+              <input type="text" id="cvv" v-model="cvv">
+            </td>
+          </tr>
+    </tbody>
+  </table>
+      <div class="w-75 m-auto m-2">
+          <button class="me-4" type="submit">Conferma ordine</button>
+          <a href="http://localhost:5173/">Torna alla homepage</a>
+      </div>
+      </form>
+    </div>
+  </template>
+  
+  <script>
+  import { store } from "../store.js";
+  export default {
+    name: "AppCheckout",
+    data() {
+      return {
+        store,
+        
+        total: 0,
+        cardNumber: '',
+        expirationDate: '',
+        cvv: ''
+      };
+    },
+    computed: {
+      // Calcola il totale del carrello
+      total() {
+        return this.store.cart.reduce((acc, item) => acc + (item.quantity * item.price), 0);
+      }
+    },
+    methods: {
+      submitOrder() {
+        // Invia l'ordine a Braintree per l'elaborazione del pagamento
+        const formData = {
+          cardNumber: this.cardNumber,
+          expirationDate: this.expirationDate,
+          cvv: this.cvv,
+          amount: this.total // Importo totale dell'ordine
+        };
+  
+        // Esegui la chiamata a Braintree per elaborare il pagamento
+        // Questo dovrebbe includere la configurazione del client Braintree e l'invio della richiesta al server per l'elaborazione del pagamento
+        // In alternativa, puoi utilizzare l'API di Braintree JavaScript per gestire il pagamento direttamente dal browser
+        // Assicurati di implementare le corrette misure di sicurezza e conformità PCI per la gestione dei dati sensibili della carta di credito
+      }
+    }
+  };
+  </script>
+  
+  <style scoped>
+  /* Stili specifici al componente */
+  .myDiv {
+    height: 80vh;
+  }
+  </style>
