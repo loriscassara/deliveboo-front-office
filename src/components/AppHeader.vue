@@ -11,19 +11,31 @@ export default {
     
   },
   methods: {
-    emptyCart() {
-      this.store.cart = [];
-      // Aggiorna il carrello nel localStorage
-      localStorage.setItem('cart', JSON.stringify(this.store.cart));
-    },
+    
     calculateTotal() {
       let total = 0;
       this.store.cart.forEach(item => {
         total += parseFloat((item.price * item.quantity).toFixed(2));
       });
       return total;
-    }
     },
+    deleteItemFromCart(item) {
+        this.store.cart.splice(item, 1);
+        localStorage.setItem('cart', JSON.stringify(this.store.cart));
+    },
+    cartDeleteItemQuantity(item) {
+      (item.quantity>1) ? item.quantity-- : 0;
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
+    },
+    cartAddItemQuantity(item) {
+      (item.quantity<20) ? item.quantity++ : 0;
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
+    }
+
+    
+    },
+
+    
     computed: {
       cartQuantity() {
       return this.store.cart.reduce((total, product) => total + product.quantity, 0);
@@ -96,6 +108,7 @@ export default {
       </div>
     </nav>
     
+    
 
     <!-- offcanvas -->
     <div
@@ -123,21 +136,20 @@ export default {
         <div class="d-flex">
           <img src="" alt="">
           <div>
-            <h6>Nome prodotto: {{ item.name }}</h6>
-            <p class="mb-1">Prezzo prodotto: {{ item.price }} €</p>
-            <p class="mb-1">Quantità: {{ item.quantity }}</p>
-            <div class="d-flex">
-            <button class="btn btn-outline-dark mx-1" @click="(item.quantity) ? item.quantity-- : 0">-</button>
-            <button class="btn btn-outline-dark mx-1" @click="item.quantity++">+</button>
-            </div>
-            <!-- <input class="w-25" type="text" :id="item.id" :name="item.name" :value="item.quantity * item.price"> -->
+            <h6>{{ item.name }}</h6>
+            <p>{{ item.price }} €</p>
+            <p>Qt. {{ item.quantity }}</p>
+            <button class="px-2 me-2" @click="cartDeleteItemQuantity(item)">-</button>
+            <button class="px-2" @click="cartAddItemQuantity(item)">+</button>
+            <button class="px-2  ms-4 bg-danger text-white" @click="deleteItemFromCart(item)">Rimuovi</button>
           </div>
         </div>
       </div>
         <hr>
-        <p class="fw-bold text-danger text-center" >Totale: {{ calculateTotal() }} €</p>
-        <div class="d-flex flex-row align-items-center justify-content-between">
-          <button type="button" class="btn btn-success my-2">Checkout</button>
+        <p class="fw-bold text-danger" v-if="store.cart.length">Totale: {{ calculateTotal() }} €</p>
+        <div class="d-flex flex-column align-items-center">
+          <router-link v-if="store.cart.length" class="btn btn-success my-2" to="/checkout">Checkout</router-link>
+          <!-- <button type="button" class="btn btn-success my-2">Checkout</button> -->
           <button v-if="store.cart.length" type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Svuota Carrello</button>
 
 

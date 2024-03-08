@@ -148,19 +148,39 @@ export default {
           console.error(errore);
         });
     },
+    emptyCart() {
+      this.store.cart = [];
+      // Aggiorna il carrello nel localStorage
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
+    },
   },
 };
 </script>
 
 <template>
-  <header class="p-0">
-    <AppHeader />
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        Sei sicuro di voler svuotare il carrello?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="emptyCart">Svuota carrello</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <header class="p-0 sticky-top">
+    <AppHeader v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered', 'AppCheckout'].indexOf($route.name) > -1"/>
   </header>
-  <main class="p-0">    <AppJumbo id="jumbo" />
-    <AppSlider id="slider" />
-    <AppCarousel id="carousel" />
+  <main class="p-0">
+    <AppJumbo v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered'].indexOf($route.name) > -1" id="jumbo" />
+    <AppSlider v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered' ].indexOf($route.name) > -1" id="slider" />
+    <AppCarousel v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered' ].indexOf($route.name) > -1" id="carousel" />
     <router-view class="router"></router-view>
-    <AppFooter />
+    <AppFooter  />
   </main>
 </template>
 
