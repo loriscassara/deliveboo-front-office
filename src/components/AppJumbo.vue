@@ -8,12 +8,12 @@ export default {
   <div id="jumbo" class="container-fluid p-0">
     <div class="row">
       <div class="col-12">
-        <img src="/public/images/jumbo.jpg" alt="" class="w-100">
+        <img src="/images/jumbo.jpg" alt="" class="w-100">
       </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-#jumbo {background-image: url(/public/images/nav.jpg);} //in case we wanted to add some padding-top
+#jumbo {background-image: url(/images/nav.jpg);} //in case we wanted to add some padding-top
 </style>

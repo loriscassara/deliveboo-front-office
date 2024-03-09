@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       store,
+      clientToken: '',
     };
   },
   mounted() {
@@ -32,12 +33,6 @@ export default {
 		if (cart) {
 			this.store.cart = JSON.parse(cart);
 		}
-
-    // axios.get("indirizzo").then(risultato => {
-    // 	console.log(risultato);
-    // }).catch(errore => {
-    // 	console.error(errore);
-    // });
   },
   methods: {
     doThings() {
@@ -52,7 +47,6 @@ export default {
           if (result.status === 200) {
             if (result.data.success) {
               this.store.restaurantsList = result.data.payload;
-			  console.log("risposta restaurants:", this.store.restaurantsList)
             } else {
               console.error(
                 "Ops... non siamo in grado di soddisfare la richiesta."
@@ -87,7 +81,6 @@ export default {
           if (result.status === 200) {
             if (result.data.success) {
               this.store.types = result.data.payload;
-              console.log(this.store.types);
             } else {
               console.error(
                 "Ops... non siamo in grado di soddisfare la richiesta."
@@ -158,7 +151,8 @@ export default {
 </script>
 
 <template>
-  <!-- Modal -->
+
+  <!-- Modale svuota carrello -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

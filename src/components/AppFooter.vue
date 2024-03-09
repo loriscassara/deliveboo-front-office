@@ -136,7 +136,7 @@ export default {
           <div class="col-12 col-sm-6 col-lg-3">
             <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
               <!-- Team Thumb-->
-              <div class="advisor_thumb"><img src="/public/images/dile.jpg" alt="">
+              <div class="advisor_thumb"><img src="/images/dile.jpg" alt="">
                 <!-- Social Info-->
                 <div class="social-info"><a href="https://www.linkedin.com/in/diletta-mantovani-7aab78290/"><i class="fab fa-linkedin"></i></a></div>
               </div>
@@ -151,7 +151,7 @@ export default {
           <div class="col-12 col-sm-6 col-lg-3">
             <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
               <!-- Team Thumb-->
-              <div class="advisor_thumb"><img src="/public/images/andre.jpg" alt="">
+              <div class="advisor_thumb"><img src="/images/andre.jpg" alt="">
                 <!-- Social Info-->
                 <div class="social-info"><a href="#"><i class="fab fa-linkedin"></i></a></div>
               </div>
@@ -166,7 +166,7 @@ export default {
           <div class="col-12 col-sm-6 col-lg-3">
             <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
               <!-- Team Thumb-->
-              <div class="advisor_thumb"><img src="/public/images/ana.jpg" alt="">
+              <div class="advisor_thumb"><img src="/images/ana.jpg" alt="">
                 <!-- Social Info-->
                 <div class="social-info"><a href="https://www.linkedin.com/in/ana-maria-correa-espinosa-953106114/"><i class="fab fa-linkedin"></i></a></div>
               </div>
@@ -181,7 +181,7 @@ export default {
           <div class="col-12 col-sm-6 col-lg-3">
             <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
               <!-- Team Thumb-->
-              <div class="advisor_thumb"><img src="/public/images/me.jpg" alt="">
+              <div class="advisor_thumb"><img src="/images/me.jpg" alt="">
                 <!-- Social Info-->
                 <div class="social-info"><a href="https://www.linkedin.com/in/loriscassara/"><i class="fab fa-linkedin"></i></a></div>
               </div>

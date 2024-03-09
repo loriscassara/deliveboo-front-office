@@ -12,5 +12,6 @@ export const store = reactive({
   productList: [],
   filteredList: [],
   cart: [],
+  clientToken: null,
 
 });

@@ -7,43 +7,43 @@ export default {
 <template>
     <div class="logos">
       <div class="logos-slide">
-        <img src="/public/images/bk_logo_new.webp" />
-        <img src="/public/images/bowl-wide.webp" />
-        <img src="/public/images/burger.webp" />
-        <img src="/public/images/carrefour-square-256x256.webp" />
-        <img src="/public/images/fries-2-wide.webp" />
-        <img src="/public/images/grocery-wide.webp" />
-        <img src="/public/images/hop3.webp" />
-        <img src="/public/images/icecreamwide.webp" />
-        <img src="/public/images/icon-donut.webp" />
-        <img src="/public/images/icon-pizza.webp" />
-        <img src="/public/images/icon-vegan.webp" />
-        <img src="/public/images/icon-wine.webp" />
-        <img src="/public/images/kfc.webp" />
-        <img src="/public/images/mcdonalds-logo-green-250x250.webp" />
-        <img src="/public/images/old-wild-west.webp" />
-        <img src="/public/images/salad-wide.webp" />
-        <img src="/public/images/sushi-wide.webp" />
+        <img src="/images/bk_logo_new.webp" />
+        <img src="/images/bowl-wide.webp" />
+        <img src="/images/burger.webp" />
+        <img src="/images/carrefour-square-256x256.webp" />
+        <img src="/images/fries-2-wide.webp" />
+        <img src="/images/grocery-wide.webp" />
+        <img src="/images/hop3.webp" />
+        <img src="/images/icecreamwide.webp" />
+        <img src="/images/icon-donut.webp" />
+        <img src="/images/icon-pizza.webp" />
+        <img src="/images/icon-vegan.webp" />
+        <img src="/images/icon-wine.webp" />
+        <img src="/images/kfc.webp" />
+        <img src="/images/mcdonalds-logo-green-250x250.webp" />
+        <img src="/images/old-wild-west.webp" />
+        <img src="/images/salad-wide.webp" />
+        <img src="/images/sushi-wide.webp" />
       </div>
 
       <div class="logos-slide">
-        <img src="/public/images/bk_logo_new.webp" />
-        <img src="/public/images/bowl-wide.webp" />
-        <img src="/public/images/burger.webp" />
-        <img src="/public/images/carrefour-square-256x256.webp" />
-        <img src="/public/images/fries-2-wide.webp" />
-        <img src="/public/images/grocery-wide.webp" />
-        <img src="/public/images/hop3.webp" />
-        <img src="/public/images/icecreamwide.webp" />
-        <img src="/public/images/icon-donut.webp" />
-        <img src="/public/images/icon-pizza.webp" />
-        <img src="/public/images/icon-vegan.webp" />
-        <img src="/public/images/icon-wine.webp" />
-        <img src="/public/images/kfc.webp" />
-        <img src="/public/images/mcdonalds-logo-green-250x250.webp" />
-        <img src="/public/images/old-wild-west.webp" />
-        <img src="/public/images/salad-wide.webp" />
-        <img src="/public/images/sushi-wide.webp" />
+        <img src="/images/bk_logo_new.webp" />
+        <img src="/images/bowl-wide.webp" />
+        <img src="/images/burger.webp" />
+        <img src="/images/carrefour-square-256x256.webp" />
+        <img src="/images/fries-2-wide.webp" />
+        <img src="/images/grocery-wide.webp" />
+        <img src="/images/hop3.webp" />
+        <img src="/images/icecreamwide.webp" />
+        <img src="/images/icon-donut.webp" />
+        <img src="/images/icon-pizza.webp" />
+        <img src="/images/icon-vegan.webp" />
+        <img src="/images/icon-wine.webp" />
+        <img src="/images/kfc.webp" />
+        <img src="/images/mcdonalds-logo-green-250x250.webp" />
+        <img src="/images/old-wild-west.webp" />
+        <img src="/images/salad-wide.webp" />
+        <img src="/images/sushi-wide.webp" />
       </div>
     </div>
 </template>

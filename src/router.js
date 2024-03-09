@@ -7,7 +7,6 @@ import ProductsList from "./pages/ProductsList.vue";
 import ProductSearch from "./pages/ProductSearch.vue";
 import ProductsFiltered from "./pages/ProductsFiltered.vue";
 import AppCheckout from "./pages/AppCheckout.vue";
-AppCheckout
 
 const router = createRouter({
   history: createWebHistory(),

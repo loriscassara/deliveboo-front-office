@@ -49,7 +49,7 @@ export default {
             <!-- <input type="checkbox" v-model="selectedTypes" :value="tag.id" @change="filteredRestaurants">
           {{ tag.name }} -->
          
-            <input type="checkbox" v-model="selectedTypes" :value="tag.id" @change="filteredRestaurants" class="btn-check" :id="tag.id + 1" autocomplete="off">
+            <input type="checkbox" v-model="selectedTypes" :value="tag.id" @submit="filteredRestaurants" class="btn-check" :id="tag.id + 1" autocomplete="off">
             <label class="btn btn-outline-dark m-2" :for="tag.id + 1"> {{ tag.name }} </label>
             
       </div>

@@ -77,7 +77,7 @@ export default {
         <a class="navbar-brand" href="http://localhost:5173/">
           <img
             id="nav-logo"
-            src="/public/images/png-logo.png"
+            src="/images/png-logo.png"
             alt="Bootstrap"
           />
         </a>
@@ -166,7 +166,7 @@ export default {
 
 
 .navbar {
-  background-image: url(/public/images/nav.jpg);
+  background-image: url(/images/nav.jpg);
 }
 #nav-logo {
   width: 6rem;
@@ -191,7 +191,7 @@ export default {
 .offcanvas {width: 20% !important;}
 
 .offcanvas-header {
-  background-image: url(/public/images/health-food-healthy-diet-diabetes-mellitus-movie-set-meal-122c7c38808c03a9d3eb4c009e8f84ba.png);
+  background-image: url(/images/health-food-healthy-diet-diabetes-mellitus-movie-set-meal-122c7c38808c03a9d3eb4c009e8f84ba.png);
   background-size: 77%;
   background-position-x: right;
   background-repeat: no-repeat; 

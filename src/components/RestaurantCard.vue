@@ -49,7 +49,7 @@ export default {
 
 <style scoped lang="scss">
 section.card {
-  background-image: url(/public/images/card-cover.jpg);
+  background-image: url(/images/card-cover.jpg);
   border-radius:24px 24px 24px 48px;
   padding:48px 48px 48px 308px;
   margin:84px 0;
