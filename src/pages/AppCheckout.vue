@@ -14,6 +14,7 @@ export default {
       customerAddress: "",
       orderNotes: "",
       total: 0,
+      paymentStatus: false, 
       store
     };
   },
@@ -51,23 +52,31 @@ export default {
       try {
         const { nonce } = await this.braintreeInstance.requestPaymentMethod();
         const response = await axios.post(this.store.apiUrl + 'token', {
-          nonce: nonce,
-          name: this.customerName,
-          surname: this.customerSurname,
-          phone: this.customerPhone,
-          email: this.customerEmail,
-          address: this.customerAddress,
-          notes: this.orderNotes,
-          total: this.getTotal, // Sending total from frontend
+          total: this.getTotal,
+          paymentMethodNonce: nonce,
         });
         console.log(response.data);
+        this.paymentStatus = true;
         // Handle response from backend
       } catch (error) {
         console.error('Errore durante il pagamento:', error);
       }
     },
     async processOrder() {
-      // Process order details
+      try {
+        const response = await axios.post(this.store.apiUrl + 'token', {
+          name: this.customerName,
+          surname: this.customerSurname,
+          phone: this.customerPhone,
+          email: this.customerEmail,
+          address: this.customerAddress,
+          notes: this.orderNotes,
+          total: this.getTotal
+        });
+        console.log(response.data);
+        } catch (error) {
+        console.error('Errore durante il processo dell\'ordine:', error);
+      }
     }
   }
 };
@@ -102,7 +111,7 @@ export default {
     <!-- Modulo Braintree -->
     <div>
       <div id="dropin-container" class="w-25"></div>
-      <button id="submit-button" class="button button--small button--green" @click="submitPayment">Aggiungi metodo di pagamento</button>
+      <button v-if="paymentStatus===false" id="submit-button" class="button button--small button--green" @click="submitPayment">Aggiungi metodo di pagamento</button>
     </div>
 
     <!-- Modulo per l'utente visitatore -->
