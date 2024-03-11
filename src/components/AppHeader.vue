@@ -136,18 +136,18 @@ export default {
         <div class="d-flex">
           <img src="" alt="">
           <div>
-            <h6>{{ item.name }}</h6>
-            <p>{{ item.price }} €</p>
-            <p>Qt. {{ item.quantity }}</p>
-            <button class="px-2 me-2" @click="cartDeleteItemQuantity(item)">-</button>
-            <button class="px-2" @click="cartAddItemQuantity(item)">+</button>
-            <button class="px-2  ms-4 bg-danger text-white" @click="deleteItemFromCart(item)">Rimuovi</button>
+            <h6>Nome: {{ item.name }}</h6>
+            <p class="mb-1">Prezzo: {{ item.price }} €</p>
+            <p>Quantità: {{ item.quantity }}</p>
+            <button class="btn btn-outline-dark px-3 me-2" @click="cartDeleteItemQuantity(item)">-</button>
+            <button class="btn btn-outline-dark px-3" @click="cartAddItemQuantity(item)">+</button>
+            <button class="btn btn-outline-danger px-2 ms-4" @click="deleteItemFromCart(item)">Rimuovi</button>
+            <hr>
           </div>
         </div>
       </div>
-        <hr>
-        <p class="fw-bold text-danger" v-if="store.cart.length">Totale: {{ calculateTotal() }} €</p>
-        <div class="d-flex flex-column align-items-center">
+        <p class="fw-bold text-danger text-center" v-if="store.cart.length">Totale: {{ calculateTotal() }} €</p>
+        <div class="d-flex flex-row align-items-center justify-content-between">
           <router-link v-if="store.cart.length" class="btn btn-success my-2" to="/checkout">Checkout</router-link>
           <!-- <button type="button" class="btn btn-success my-2">Checkout</button> -->
           <button v-if="store.cart.length" type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Svuota Carrello</button>
@@ -162,10 +162,9 @@ export default {
 
 </template>
 <style scoped lang="scss">
-
-
 .navbar {
-  background-image: url(/public/images/nav.jpg);
+  background: #000000;
+  opacity: 0.7;
 }
 #nav-logo {
   width: 6rem;

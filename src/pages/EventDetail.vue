@@ -126,12 +126,12 @@ if (dropBtn) {
   </div>
   
 
-  <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante "{{ restaurant?.business_name }}"</h3>
+  <h3 class="mb-3 py-4 text-center fw-bold text-uppercase">Piatti ristorante "{{ restaurant?.business_name }}"</h3>
 
   <div class="row justify-content-center">
   <div class="container m-2" v-for="product in restaurant?.products">
       <div class="images">
-      <img src="https://media.istockphoto.com/id/589415708/it/foto/frutta-fresca-e-verdura.jpg?s=612x612&w=0&k=20&c=hCaRSdjKzB4phEZRlYS9OPORCwrjiyHFSQ1jEGVnvB4=" />
+      <img class="rounded" :src="this.store.prova + product.image" />
       </div>
       <div class="product">
         <h1>{{ product.name }}</h1>
@@ -143,11 +143,12 @@ if (dropBtn) {
       <form class="d-flex justify-content-between align-items-center" @submit.prevent="addToCart(product)">
         <div class="d-flex justify-content-between align-items-center">
         <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
-        <input class="input-group-text mb-2" type="number" :id="product.id" name="quantity" min="1" max="" v-model="product.quantity">
+        <input class="input-group-text w-25 mb-2 me-5" type="number" :id="product.id" name="quantity" min="1" max="" v-model="product.quantity">
       </div>
         <button id="dropdownButton" type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
 
       </form>
+      </div>
       
       <!-- Modale per messaggio di aggiunta al carrello -->
       <div class="modal" :class="{ 'show': messaggioVisibile }">
@@ -208,7 +209,8 @@ h2 {
 }
 
 img {
-  width: 290px;
+  max-width: 280px;
+  max-height: 200px;
   margin-top: 35px;
 }
 
