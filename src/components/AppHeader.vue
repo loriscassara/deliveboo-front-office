@@ -45,13 +45,6 @@ export default {
       cartQuantity() {
       return this.store.cart.reduce((total, product) => total + product.quantity, 0);
     }
-    //       totalSum() {
-
-    // for (let i = 0; i < this.total.length; i++) {
-    //   this.sum += Number(this.total[i]);
-    // }
-    //   console.log(this.sum);
-    // }
 
   }
 };
@@ -168,8 +161,8 @@ export default {
 
 .dot {
   position: absolute;
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 0.95rem;
+  height: 0.95rem;
   background-color: red;
   border-radius: 50%;
   right: -0.5rem;
