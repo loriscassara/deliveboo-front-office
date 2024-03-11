@@ -56,6 +56,7 @@ export default {
       this.emptyCart();
       // Aggiungi il prodotto selezionato al carrello
       this.addToCart(product);
+      this.nascondiErrore();
     },
     addToCart(product) {
       // Verifica se la quantità selezionata è vuota o 0
@@ -160,8 +161,8 @@ export default {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary mx-3" @click="nascondiErrore">Annulla</button>
-              <button type="button" class="btn btn-secondary"
-                @click="emptyCartAndAddProduct(product); nascondiErrore();">Svuota carrello e aggiungi</button>
+              <button type="button" class="btn btn-secondary" @click="emptyCartAndAddProduct(product)">Svuota carrello e
+                aggiungi</button>
             </div>
           </div>
         </div>
