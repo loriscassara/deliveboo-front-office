@@ -65,7 +65,7 @@ export default {
           restaurantId: product.restaurant_id,
           name: product.name,
           quantity: product.quantity,
-          price: product.price
+          price: product.price,
         });
         localStorage.setItem('cart', JSON.stringify(this.store.cart));
         const addedProduct = this.store.cart.find(item => item.id === product.id);
