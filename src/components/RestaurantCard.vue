@@ -1,8 +1,15 @@
 
 <script>
+import { store } from "../store.js";
+
 export default {
     name: "RestaurantCard",
-    props: ["item"]
+    props: ["item"],
+  data() {
+    return {
+      store,
+    };
+  }
 }
 </script>
 
@@ -26,7 +33,7 @@ export default {
         </div>
     </div> -->
 
-      <section class="card mb-5">
+      <section class="card my-5">
     <div class="text-content rounded p-3">
       <h3>{{ item.business_name }}</h3>
       <p>{{ item.description }}</p> 
@@ -41,7 +48,7 @@ export default {
         </router-link>
     </div>
     <div class="visual">
-      <img src="https://images.unsplash.com/photo-1548142813-c348350df52b?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NzgzMDU1NDY&ixlib=rb-4.0.3&q=80" alt="" />
+      <img :src="this.store.prova + item.cover_image" alt="" />
     </div>
   </section>
 

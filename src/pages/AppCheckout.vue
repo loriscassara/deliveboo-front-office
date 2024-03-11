@@ -1,178 +1,298 @@
 <script>
-import axios from 'axios';
-import { store } from '../store';
 
+import { store } from "../store.js";
+import axios from "axios"; //importo Axios
 export default {
+  name: "AppCheckout",
   data() {
     return {
-      clientToken: null,
-      braintreeInstance: null,
-      customerName: "",
-      customerSurname: "",
-      customerPhone: "",
-      customerEmail: "",
-      customerAddress: "",
-      orderNotes: "",
-      total: 0,
-      paymentStatus: false, 
-      store
+      store,
+      name: '',
+      surname: '',
+      phone: '',
+      email: '',
+      address: '',
+      notes: '',
+      paid: 1,
+
+      // restaurant_id: '',
+      expirationDate: '',
+      cvv: '',
+
     };
   },
-  mounted() {
-    this.getClientToken();
-  },
   computed: {
-    getTotal() {
+    // Calcola il totale del carrello
+    total() {
       return this.store.cart.reduce((acc, item) => acc + (item.quantity * item.price), 0);
     }
+
   },
   methods: {
-    async getClientToken() {
-      try {
-        const response = await axios.get(store.apiUrl + "token");
-        this.clientToken = response.data.token; // Assuming the token key is 'token'
-        this.initializeBraintree();
-      } catch (error) {
-        console.error('Errore durante il recupero del client token:', error);
-      }
+    emptyCart() {
+      this.store.cart = [];
+      // Aggiorna il carrello nel localStorage
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
     },
-    initializeBraintree() {
-      braintree.dropin.create({
-        authorization: this.clientToken, // Removed quotes around this.clientToken
-        selector: '#dropin-container'
-      }, (err, instance) => {
-        if (err) {
-          console.error('Errore durante l\'inizializzazione di Braintree:', err);
-          return;
+
+    submitOrder() {
+
+      const total = this.total;
+      // Invia l'ordine a Braintree per l'elaborazione del pagamento
+      const formData = {
+
+        name: this.name,
+        surname: this.surname,
+        phone: this.phone,
+        email: this.email,
+        address: this.address,
+        notes: this.notes,
+        paid: this.paid,
+        total: total,
+        // restaurant_id: this.store.cart[0].restaurant_id, 
+        products: this.store.cart.map(item => ({
+          id: item.id,
+          item_quantity: item.quantity,
+          total: item.total
+        })),
+        payment: {
+          cardNumber: this.cardNumber,
+          expirationDate: this.expirationDate,
+          cvv: this.cvv
         }
-        this.braintreeInstance = instance;
-      });
-    },
-    async submitPayment() {
-      try {
-        const { nonce } = await this.braintreeInstance.requestPaymentMethod();
-        const response = await axios.post(this.store.apiUrl + 'token', {
-          total: this.getTotal,
-          paymentMethodNonce: nonce,
+      };
+
+      axios.post('http://127.0.0.1:8000/api/orders/store', formData)
+        .then(response => {
+          // Gestisci la risposta dal backend
+          console.log("Risposta metodo post", response.data.message);
+          this.emptyCart();
+          this.$router.push({ name: 'AppSuccessful' });
+        })
+        .catch(error => {
+          // Gestisci eventuali errori
+          console.error('Errore durante la creazione dell\'ordine:', error);
         });
-        console.log(response.data);
-        this.paymentStatus = true;
-        // Handle response from backend
-      } catch (error) {
-        console.error('Errore durante il pagamento:', error);
-      }
-    },
-    async processOrder() {
-      try {
-        const response = await axios.post(this.store.apiUrl + 'token', {
-          name: this.customerName,
-          surname: this.customerSurname,
-          phone: this.customerPhone,
-          email: this.customerEmail,
-          address: this.customerAddress,
-          notes: this.orderNotes,
-          total: this.getTotal
-        });
-        console.log(response.data);
-        } catch (error) {
-        console.error('Errore durante il processo dell\'ordine:', error);
-      }
+
+
+
+
     }
   }
 };
 </script>
 
 <template>
-  <div>
-    
-  <div class="myDiv">
-    <h2 class="text-center">Checkout</h2>
-    <!-- Campo info compra -->
-    <table class="table table-dark table-striped w-75 m-auto">
-      <thead>
-        <tr>
-          <th scope="col">Prodotto</th>
-          <th scope="col">Quantità</th>
-          <th scope="col">Prezzo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in store.cart" :key="index">
-          <td>{{ item.name }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>{{ item.price }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 class="m-3 w-75 m-auto">Totale: {{ getTotal }}</h3>
-  </div>
+       <div class="mainscreen">
+      <div class="card">
+        <div class="leftside d-flex flex-column align-items-center">
+          <table class="table table-dark table-striped w-100 m-auto">
+            <thead>
+              <tr>
+                <th scope="col">Prodotto</th>
+                <th scope="col">Quantità</th>
+                <th scope="col">Prezzo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in store.cart" :key="index">
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3 class="m-auto">Totale: {{ total }} €</h3>
+        </div>
+        <div class="rightside">
+          <form @submit.prevent="submitOrder">
+            <h1 class="text-uppercase fw-bold">CheckOut</h1>
+            <h2>Informazioni di pagamento</h2>
+            <p>Nome</p>
+            <input type="text" class="inputbox" name="name" placeholder="Es. Marco Rossi" required />
+            <p>Numero carta</p>
+            <input type="number" class="inputbox" name="card_number" id="card_number" placeholder="0000-0000-0000-0000" required />
 
+            <p>Tipo di carta</p>
+            <select class="inputbox" name="card_type" id="card_type" required>
+              <option value="">Scegli il tipo di carta</option>
+              <option value="Visa">Visa</option>
+              <option value="RuPay">RuPay</option>
+              <option value="MasterCard">MasterCard</option>
+            </select>
+<div class="expcvv">
 
-    <!-- Modulo Braintree -->
-    <div>
-      <div id="dropin-container" class="w-25"></div>
-      <button v-if="paymentStatus===false" id="submit-button" class="button button--small button--green" @click="submitPayment">Aggiungi metodo di pagamento</button>
+            <p class="expcvv_text">Scadenza</p>
+            <input type="date" class="inputbox" name="exp_date" id="exp_date" required />
+
+            <p class="expcvv_text2">CVV</p>
+            <input type="password" class="inputbox" name="cvv" id="cvv" placeholder="000" required />
+        </div>
+        <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Cognome</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Email</th>
+            <th scope="col">Indirizzo</th>
+            <th scope="col">Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" id="name" class="form-control" v-model="name" required></td>
+            <td><input type="text" id="surname" class="form-control" v-model="surname" required></td>
+            <td><input type="number" id="phone" class="form-control" v-model="phone" required></td>
+            <td><input type="email" id="email" class="form-control" v-model="email" required></td>
+            <td><input type="text" id="address" class="form-control" v-model="address" required></td>
+            <td><input type="text" id="notes" class="form-control" v-model="notes"></td>
+          </tr>
+        </tbody>
+      </table>
+            <button type="submit" class="button text-uppercase">Compra ora</button>
+          </form>
+          <a href="http://localhost:5173/">Torna alla home</a>
+        </div>
+      </div>
     </div>
 
-    <!-- Modulo per l'utente visitatore -->
-    <h2>Dettagli Cliente</h2>
-    <form @submit.prevent="processOrder" class="mb-3">
-      <label for="name">Nome:</label>
-      <input type="text" id="name" name="name" v-model="customerName" required>
-
-      <label for="surname">Cognome:</label>
-      <input type="text" id="surname" name="surname" v-model="customerSurname" required>
-
-      <label for="phone">Telefono:</label>
-      <input type="number" minlength="9" maxlength="13" id="phone" name="phone" v-model="customerPhone" required>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" v-model="customerEmail" required>
-
-      <label for="address">Indirizzo:</label>
-      <input type="text" id="address" name="address" v-model="customerAddress" required>
-
-      <label for="notes">Note:</label>
-      <input type="text" id="notes" name="notes" v-model="orderNotes">
-
-      <button type="submit">Effettua Ordine</button>
-    </form>
-  </div>
 </template>
+  
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-
-<style scoped>
-.button {
-  cursor: pointer;
-  font-weight: 500;
-  left: 3px;
-  line-height: inherit;
-  position: relative;
-  text-decoration: none;
-  text-align: center;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3px;
-  --webkit-appearance: none;
-  --moz-appearance: none;
-  display: inline-block;
+* {
+  font-family: 'Montserrat';
 }
 
-.button--small {
-  padding: 10px 20px;
-  font-size: 0.875rem;
+.mainscreen
+{
+	min-height: 100vh;
+	width: 100%;
+	display: flex;
+    flex-direction: column;
+    background-color: #DFDBE5;
+    background-image: url("/public/images/checkout.jpg");
+    color:#963E7B;
 }
 
-.button--green {
-  outline: none;
-  background-color: #64d18a;
-  border-color: #64d18a;
-  color: white;
-  transition: all 200ms ease;
+.card {
+	width: 60rem;
+    margin: auto;
+    background: white;
+    position:center;
+    align-self: center;
+    top: -3rem;
+    border-radius: 1.5rem;
+    box-shadow: 10px 3px 20px #0d0d0d8c;
+    display:flex;
+    flex-direction: row;
+    
 }
 
-.button--green:hover {
-  background-color: #8bdda8;
-  color: white;
+.leftside {
+	background-image: url(/public/images/card-cover.jpg);
+	width: 25rem;
+	display: inline-flex;
+    align-items: center;
+    justify-content: center;
+	border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+}
+
+.product {
+    object-fit: cover;
+	width: 20em;
+    height: 20em;
+    border-radius: 100%;
+}
+
+.rightside {
+    background-color: #ffffff;
+	width: 35rem;
+	border-bottom-right-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    padding: 1rem 2rem 3rem 3rem;
+}
+
+p{
+    display:block;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: .8rem 0;
+}
+
+.inputbox
+{
+    color:#030303;
+	width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-bottom: 1.5px solid #ccc;
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
+    color: #615a5a;
+    font-size: 1.1rem;
+    font-weight: 500;
+  outline:none;
+}
+
+.expcvv {
+    display:flex;
+    justify-content: space-between;
+    padding-top: 0.6rem;
+}
+
+.expcvv_text{
+    padding-right: 1rem;
+}
+.expcvv_text2{
+    padding:0 1rem;
+}
+
+.button{
+    background: linear-gradient(
+135deg
+, #101010 0%, #727272 100%);
+    padding: 15px;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    width:100%;
+    letter-spacing: .11rem;
+    outline:none;
+}
+
+.button:hover
+{
+	transform: scale(1.05) translateY(-3px);
+    box-shadow: 3px 3px 6px #38373785;
+}
+
+@media only screen and (max-width: 1000px) {
+    .card{
+        flex-direction: column;
+        width: auto;
+      
+    }
+
+    .leftside{
+        width: 100%;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+      border-top-right-radius:0;
+      border-radius:0;
+    }
+
+    .rightside{
+        width:auto;
+        border-bottom-left-radius: 1.5rem;
+        padding:0.5rem 3rem 3rem 2rem;
+      border-radius:0;
+    }
 }
 </style>

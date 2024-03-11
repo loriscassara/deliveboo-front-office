@@ -17,6 +17,8 @@ import * as solidIcons from '@fortawesome/free-solid-svg-icons'
 import * as regularIcons from '@fortawesome/free-regular-svg-icons'
 import * as brandIcons from '@fortawesome/free-brands-svg-icons'
 
+
+
 library.add(solidIcons.fas);
 library.add(regularIcons.far);
 library.add(brandIcons.fab);

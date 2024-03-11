@@ -5,6 +5,7 @@ import AppSlider from "./components/AppSlider.vue";
 import AppCarousel from "./components/AppCarousel.vue";
 import AppFooter from "./components/AppFooter.vue";
 
+
 import axios from "axios"; //importo Axios
 import { store } from "./store.js"; //state management
 import EventList from "./pages/EventList.vue";
@@ -16,7 +17,8 @@ export default {
     EventList,
     AppSlider,
     AppCarousel,
-    AppFooter
+    AppFooter,
+   
   },
   data() {
     return {
@@ -167,7 +169,7 @@ export default {
   </div>
 </div>
   <header class="p-0 sticky-top">
-    <AppHeader v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered', 'AppCheckout'].indexOf($route.name) > -1"/>
+    <AppHeader v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered', 'AppCheckout','AppSuccessful'].indexOf($route.name) > -1"/>
   </header>
   <main class="p-0">
     <AppJumbo v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered'].indexOf($route.name) > -1" id="jumbo" />
