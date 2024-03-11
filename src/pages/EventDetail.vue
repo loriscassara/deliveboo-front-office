@@ -59,7 +59,7 @@ export default {
     },
     addToCart(product) {
       // Verifica se la quantità selezionata è vuota o 0
-      if (product?.quantity  === 0 || !product?.quantity) {
+      if (product?.quantity === 0 || !product?.quantity) {
         this.errore2();
         return; // Non aggiunge l'oggetto al carrello se la quantità è vuota o 0
       }
@@ -67,7 +67,7 @@ export default {
       if (existingProduct) {
         existingProduct.quantity += product.quantity;
       } else {
-        if (this.store.cart.length > 0 && product.restaurant_id !== this.store.cart[0]?.restaurantId ) {
+        if (this.store.cart.length > 0 && product.restaurant_id !== this.store.cart[0]?.restaurantId) {
           this.mostraErrore();
           return;
         }
@@ -88,7 +88,7 @@ export default {
     mostraErrore() {
       this.erroreVisibile = true;
       this.messaggioVisibile = false; // Nasconde il messaggio di conferma in caso di errore
-      
+
     },
     nascondiErrore() {
       this.erroreVisibile = false;
@@ -100,7 +100,7 @@ export default {
         this.messaggioVisibile = false;
       }, 1500);
     },
-    errore2(){
+    errore2() {
       this.errore2Visibile = true;
       this.messaggioVisibile = false;
       setTimeout(() => {
@@ -123,7 +123,7 @@ export default {
   <!-- Modale per messaggio di aggiunta al carrello -->
   <div class="modal" :class="{ 'show': messaggioVisibile }">
     <div class="modal-dialog">
-      <div class="Mymodal-content">
+      <div class="myModal-content">
         <div class="modal-body ">
           Oggetto aggiunto al carrello!
         </div>
@@ -142,31 +142,32 @@ export default {
       </div>
     </div>
   </div>
-    <!-- Modale per messaggio di errore in caso di selezione piatto da un altro ristorante -->
-    <div class="modal" :class="{ 'show': erroreVisibile }">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            Non puoi aggiungere prodotti di ristoranti diversi all'interno dello stesso ordine! <br>
-            Vuoi aggiungere il prodotto e svuotare il carrello attuale? <br>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary mx-3" @click="nascondiErrore">Annulla</button>
-            <button type="button" class="btn btn-secondary"
-              @click="emptyCartAndAddProduct(product); nascondiErrore();">Svuota carrello e aggiungi</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  
+
+
 
 
   <h3 class="mb-3 py-4 text-center fw-bold text-uppercase">Piatti ristorante "{{ restaurant?.business_name }}"</h3>
 
   <div class="row justify-content-center">
-  <div class="container m-2" v-for="product in restaurant?.products">
+    <div class="container m-2" v-for="product in restaurant?.products">
+      <!-- Modale per messaggio di errore in caso di selezione piatto da un altro ristorante -->
+      <div class="modal" :class="{ 'show': erroreVisibile }">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              Non puoi aggiungere prodotti di ristoranti diversi all'interno dello stesso ordine! <br>
+              Vuoi aggiungere il prodotto e svuotare il carrello attuale? <br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary mx-3" @click="nascondiErrore">Annulla</button>
+              <button type="button" class="btn btn-secondary"
+                @click="emptyCartAndAddProduct(product); nascondiErrore();">Svuota carrello e aggiungi</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="images">
-      <img class="rounded" :src="this.store.prova + product.image" />
+        <img class="rounded" :src="this.store.prova + product.image" />
       </div>
       <div class="product">
         <h1>{{ product.name }}</h1>
@@ -175,34 +176,25 @@ export default {
 
       </div>
       <div class="buttons pt-4">
-      <form class="d-flex justify-content-between align-items-center" @submit.prevent="addToCart(product)">
-        <div class="d-flex justify-content-between align-items-center">
-        <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
-        <input class="input-group-text w-25 mb-2 me-5" type="number" :id="product.id" name="quantity" v-model="product.quantity">
-      </div>
-        <button id="dropdownButton" type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
-
-      </form>
-      </div>
-      
-      <!-- Modale per messaggio di aggiunta al carrello -->
-      <div class="modal" :class="{ 'show': messaggioVisibile }">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            Oggetto aggiunto al carrello!
+        <form class="d-flex justify-content-between align-items-center" @submit.prevent="addToCart(product)">
+          <div class="d-flex justify-content-between align-items-center">
+            <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
+            <input class="input-group-text w-25 mb-2 me-5" type="number" :id="product.id" name="quantity"
+              v-model="product.quantity" min="0">
           </div>
-        </div>
-      </div>
-    </div>
-      
-</div>
+          <button id="dropdownButton" type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
 
-    <h5 v-if="messaggio">{{ messaggio }}</h5>
-    <router-link :to="{ name: 'Restaurants' }"
-      class="btn btn-outline-dark w-25 m-auto d-flex justify-content-center mt-5 mb-5">
-      <span>Torna alla lista ristoranti</span>
-    </router-link>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <h5 v-if="messaggio">{{ messaggio }}</h5>
+  <router-link :to="{ name: 'Restaurants' }"
+    class="btn btn-outline-dark w-25 m-auto d-flex justify-content-center mt-5 mb-5">
+    <span>Torna alla lista ristoranti</span>
+  </router-link>
 </template>
 
 <style scoped lang="scss">
