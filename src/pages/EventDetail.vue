@@ -177,7 +177,7 @@ export default {
       <form class="d-flex justify-content-between align-items-center" @submit.prevent="addToCart(product)">
         <div class="d-flex justify-content-between align-items-center">
         <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
-        <input class="input-group-text w-25 mb-2 me-5" type="number" :id="product.id" name="quantity" min="1" max="" v-model="product.quantity">
+        <input class="input-group-text w-25 mb-2 me-5" type="number" :id="product.id" name="quantity" v-model="product.quantity">
       </div>
         <button id="dropdownButton" type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
 
