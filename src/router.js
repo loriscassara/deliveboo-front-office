@@ -7,6 +7,7 @@ import ProductsList from "./pages/ProductsList.vue";
 import ProductSearch from "./pages/ProductSearch.vue";
 import ProductsFiltered from "./pages/ProductsFiltered.vue";
 import AppCheckout from "./pages/AppCheckout.vue";
+import AppSuccessful from "./pages/AppSuccessful.vue";
 
 
 const router = createRouter({
@@ -49,6 +50,11 @@ const router = createRouter({
       path: "/checkout",
       name: "AppCheckout",
       component: AppCheckout,
+    },
+    {
+      path: "/successful",
+      name: "AppSuccessful",
+      component: AppSuccessful
     },
   ],
 });

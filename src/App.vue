@@ -175,7 +175,7 @@ export default {
   </div>
 </div>
   <header class="p-0 sticky-top">
-    <AppHeader v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered', 'AppCheckout'].indexOf($route.name) > -1"/>
+    <AppHeader v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered', 'AppCheckout','AppSuccessful'].indexOf($route.name) > -1"/>
   </header>
   <main class="p-0">
     <AppJumbo v-if="['Home', 'Restaurants', 'Restaurant-detail', 'Products', 'ProductSearch', 'ProductsFiltered'].indexOf($route.name) > -1" id="jumbo" />
