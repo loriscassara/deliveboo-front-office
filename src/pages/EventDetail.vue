@@ -352,7 +352,7 @@ button {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.myModal-content {
   position: relative;
   background-color: #15ff00;
   margin: 15% auto;
