@@ -1,16 +1,17 @@
 <script>
 import { store } from "../store.js";
 import axios from "axios";
-
 export default {
   name: "EventDetail",
+  inheritAttrs: false,
   props: ["id"],
   data() {
     return {
       store,
       restaurant: null,
       messaggioVisibile: false,
-      erroreVisibile: false
+      erroreVisibile: false,
+      errore2Visibile: false,
     };
   },
   mounted() {
@@ -19,7 +20,6 @@ export default {
   methods: {
     getEventDetail() {
       let url = this.store.apiUrl + this.store.apiEventEndpoint + this.id;
-
       axios
         .get(url)
         .then((result) => {
@@ -51,7 +51,18 @@ export default {
           console.error(errore);
         });
     },
+    emptyCartAndAddProduct(product) {
+      // Svuota il carrello
+      this.emptyCart();
+      // Aggiungi il prodotto selezionato al carrello
+      this.addToCart(product);
+    },
     addToCart(product) {
+      // Verifica se la quantità selezionata è vuota o 0
+      if (product?.quantity  === 0 || !product?.quantity) {
+        this.errore2();
+        return; // Non aggiunge l'oggetto al carrello se la quantità è vuota o 0
+      }
       const existingProduct = this.store.cart.find(item => item.id === product.id);
       if (existingProduct) {
         existingProduct.quantity += product.quantity;
@@ -65,11 +76,11 @@ export default {
           restaurantId: product.restaurant_id,
           name: product.name,
           quantity: product.quantity,
-          price: product.price,
+          price: product.price
         });
         localStorage.setItem('cart', JSON.stringify(this.store.cart));
         const addedProduct = this.store.cart.find(item => item.id === product.id);
-        if (addedProduct) {
+        if (addedProduct > 0) {
           this.mostraMessaggio();
         }
       }
@@ -80,6 +91,7 @@ export default {
     },
     nascondiErrore() {
       this.erroreVisibile = false;
+      this.errore2Visibile = false;
     },
     mostraMessaggio() {
       this.messaggioVisibile = true;
@@ -87,84 +99,110 @@ export default {
         this.messaggioVisibile = false;
       }, 1500);
     },
-    
+    errore2(){
+      this.errore2Visibile = true;
+      this.messaggioVisibile = false;
+      setTimeout(() => {
+        this.errore2Visibile = false;
+      }, 1500);
+    },
+    emptyCart() {
+      this.store.cart = [];
+      // Aggiorna il carrello nel localStorage
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
+    },
   },
-  
 };
-
-const dropBtn = document.getElementById('dropdownButton');
-if (dropBtn) {
-  document.getElementById('dropdownButton').addEventListener('click', function() {
-      // Aggiungi la classe 'show' alla dropdown
-      document.querySelector('.dropdown').classList.add('show');
-
-      // Rimuovi la classe 'show' dopo 2 secondi
-      setTimeout(function() {
-        document.querySelector('.dropdown').classList.remove('show');
-      }, 1000);
-    });
-}
-
 
 </script>
 
 
 <template>
-  
-<!-- Modale per messaggio di errore -->
-<div class="modal" :class="{ 'show': erroreVisibile }">
+
+  <!-- Modale per messaggio di aggiunta al carrello -->
+  <div class="modal" :class="{ 'show': messaggioVisibile }">
     <div class="modal-dialog">
-      <div class="modal-content modal-error">
+      <div class="Mymodal-content">
         <div class="modal-body ">
-          Non puoi aggiungere prodotti da ristoranti diversi nello stesso ordine! <br>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="nascondiErrore">Ok scusa</button>
+          Oggetto aggiunto al carrello!
         </div>
       </div>
     </div>
   </div>
+
+
+  <!-- Modale prova -->
+  <div class="modal" :class="{ 'show': errore2Visibile }">
+    <div class="modal-dialog">
+      <div class="modal-content modal-error">
+        <div class="modal-body text-white">
+          Quantità selezionata non valida. <br>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Modale per messaggio di errore in caso di selezione piatto da un altro ristorante -->
+    <div class="modal" :class="{ 'show': erroreVisibile }">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            Non puoi aggiungere prodotti di ristoranti diversi all'interno dello stesso ordine! <br>
+            Vuoi aggiungere il prodotto e svuotare il carrello attuale? <br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary mx-3" @click="nascondiErrore">Annulla</button>
+            <button type="button" class="btn btn-secondary"
+              @click="emptyCartAndAddProduct(product); nascondiErrore();">Svuota carrello e aggiungi</button>
+          </div>
+        </div>
+      </div>
+    </div>
   
 
-  <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante "{{ restaurant?.business_name }}"</h3>
 
-  <div class="container" v-for="product in restaurant?.products">
+    <h3 class="mb-3 text-center fw-bold text-uppercase">Piatti ristorante "{{ restaurant?.business_name }}"</h3>
+
+    <div class="container" v-for="product in restaurant?.products">
       <div class="images">
-      <img src="https://media.istockphoto.com/id/589415708/it/foto/frutta-fresca-e-verdura.jpg?s=612x612&w=0&k=20&c=hCaRSdjKzB4phEZRlYS9OPORCwrjiyHFSQ1jEGVnvB4=" />
+        <img
+          src="https://media.istockphoto.com/id/589415708/it/foto/frutta-fresca-e-verdura.jpg?s=612x612&w=0&k=20&c=hCaRSdjKzB4phEZRlYS9OPORCwrjiyHFSQ1jEGVnvB4=" />
       </div>
       <div class="product">
         <h1>{{ product.name }}</h1>
         <h2>{{ product.price }} €</h2>
         <p class="desc">{{ product.description }}</p>
-        
+
       </div>
       <div class="buttons pt-4">
-      <form class="d-flex justify-content-between align-items-center" @submit.prevent="addToCart(product)">
-        <div class="d-flex justify-content-between align-items-center">
-        <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
-        <input class="input-group-text mb-2" type="number" :id="product.id" name="quantity" min="1" max="" v-model="product.quantity">
-      </div>
-        <button id="dropdownButton" type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
+        <form class="d-flex justify-content-between align-items-center" @submit.prevent="addToCart(product)">
+          <div class="d-flex justify-content-between align-items-center">
+            <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
+            <input class="input-group-text mb-2"  type="number" :id="product.id" name="quantity" min="1" max=""
+              v-model="product.quantity">
+          </div>
+          <button id="dropdownButton" type="submit"  @click="mostraMessaggio">Aggiungi al
+            carrello</button>
 
-      </form>
-      
-      <!-- Modale per messaggio di aggiunta al carrello -->
-      <div class="modal" :class="{ 'show': messaggioVisibile }">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            Oggetto aggiunto al carrello!
+        </form>
+
+        <!-- Modale per messaggio di aggiunta al carrello -->
+        <div class="modal" :class="{ 'show': messaggioVisibile }">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                Oggetto aggiunto al carrello!
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-</div>
 
-<h5 v-if="messaggio">{{ messaggio }}</h5>
-  <router-link :to="{ name: 'Restaurants' }" class="btn btn-outline-dark w-25 m-auto d-flex justify-content-center mt-5 mb-5">
-    <span>Torna alla lista ristoranti</span>
-  </router-link>
+    <h5 v-if="messaggio">{{ messaggio }}</h5>
+    <router-link :to="{ name: 'Restaurants' }"
+      class="btn btn-outline-dark w-25 m-auto d-flex justify-content-center mt-5 mb-5">
+      <span>Torna alla lista ristoranti</span>
+    </router-link>
 </template>
 
 <style scoped lang="scss">
@@ -251,6 +289,7 @@ button {
   letter-spacing: 1px;
   color: #F5F5F5;
   cursor: pointer;
+
   &:hover {
     background: #000000;
     transition: all .4s ease-in-out;
@@ -273,6 +312,7 @@ button {
   grid-gap: 4px;
   margin-left: 20px;
   margin-top: 5px;
+
   &:hover {
     cursor: pointer;
   }
@@ -280,7 +320,7 @@ button {
 
 .pick {
   margin-top: 11px;
-  margin-bottom:0;
+  margin-bottom: 0;
   margin-left: 20px;
 }
 
@@ -289,14 +329,15 @@ button {
   border: 1px solid #000000;
   font-size: 0.7em;
   text-align: center;
-  &:hover{
+
+  &:hover {
     background: #000000;
     color: #F5F5F5;
     transition: all .4s ease-in-out;
   }
 }
 
-.focus{
+.focus {
   background: #0a0a0a;
   color: #F5F5F5;
 }
@@ -324,6 +365,7 @@ button {
   width: 80%;
   font-weight: 600;
 }
+
 .modal-error {
   position: relative;
   background-color: #ff0000;
