@@ -56,7 +56,7 @@ export default {
       this.emptyCart();
       // Aggiungi il prodotto selezionato al carrello
       this.addToCart(product);
-      this.nascondiErrore();
+      console.log(product, "product:")
     },
     addToCart(product) {
       // Verifica se la quantità selezionata è vuota o 0
@@ -157,12 +157,12 @@ export default {
           <div class="modal-content">
             <div class="modal-body">
               Non puoi aggiungere prodotti di ristoranti diversi all'interno dello stesso ordine! <br>
-              Vuoi aggiungere il prodotto e svuotare il carrello attuale? <br>
+              Vuoi svuotare il carrello attuale? <br>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary mx-3" @click="nascondiErrore">Annulla</button>
-              <button type="button" class="btn btn-secondary" @click="emptyCartAndAddProduct(product)">Svuota carrello e
-                aggiungi</button>
+              <button type="button" class="btn btn-secondary"
+                @click="emptyCartAndAddProduct(product); nascondiErrore();">Svuota carrello</button>
             </div>
           </div>
         </div>
@@ -181,7 +181,7 @@ export default {
           <div class="d-flex justify-content-between align-items-center">
             <label class="m-0 me-3" :for="product.id">Seleziona quantità:</label>
             <input class="input-group-text w-25 mb-2 me-5" type="number" :id="product.id" name="quantity"
-              v-model="product.quantity" min="0">
+              v-model="product.quantity">
           </div>
           <button id="dropdownButton" type="submit" @click="mostraMessaggio">Aggiungi al carrello</button>
 
