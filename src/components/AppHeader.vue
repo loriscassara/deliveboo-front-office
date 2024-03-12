@@ -49,9 +49,10 @@ export default {
   }
 };
 </script>
+
 <template>
   <!-- Modal -->
-  <!-- ciaone -->
+
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -93,7 +94,7 @@ export default {
           <button type="button" class="btn btn-outline-light mx-2 border-2 position-relative" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
             <i class="fa-solid fa-cart-shopping text-light"></i>
-            <div class="dot" v-if="this.store.cart.length"> {{ cartQuantity }}</div>
+            <div class="dot fw-semibold" v-if="this.store.cart.length"> {{ cartQuantity }}</div>
           </button>
         </div>
       </div>
@@ -162,12 +163,12 @@ export default {
 
 .dot {
   position: absolute;
-  width: 0.95rem;
-  height: 0.95rem;
+  width: 1.3rem;
+  height: 1.3rem;
   background-color: red;
   border-radius: 50%;
-  right: -0.5rem;
-  top: -0.5rem;
+  right: -0.6rem;
+  top: -0.6rem;
 }
 
 // .offcanvas {
