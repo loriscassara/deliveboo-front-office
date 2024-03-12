@@ -121,17 +121,6 @@ export default {
 
 <template>
 
-  <!-- Modale per messaggio di aggiunta al carrello -->
-  <div class="modal" :class="{ 'show': messaggioVisibile }">
-    <div class="modal-dialog">
-      <div class="myModal-content">
-        <div class="modal-body ">
-          Oggetto aggiunto al carrello!
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <!-- Modale prova -->
   <div class="modal" :class="{ 'show': errore2Visibile }">
@@ -149,12 +138,12 @@ export default {
       <div class="modal-content">
         <div class="modal-body">
           Non puoi aggiungere prodotti di ristoranti diversi all'interno dello stesso ordine! <br>
-          Vuoi aggiungere il prodotto e svuotare il carrello attuale? <br>
+          Vuoi svuotare il carrello attuale? <br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary mx-3" @click="nascondiErrore">Annulla</button>
           <button type="button" class="btn btn-secondary"
-            @click="emptyCartAndAddProduct(product); nascondiErrore();">Svuota carrello e aggiungi</button>
+            @click="emptyCartAndAddProduct(product); nascondiErrore();">Svuota carrello</button>
         </div>
       </div>
     </div>
