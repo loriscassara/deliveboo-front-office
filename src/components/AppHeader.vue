@@ -61,7 +61,7 @@ export default {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="emptyCart">Svuota
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="emptyCart">Svuota
             carrello</button>
         </div>
       </div>
