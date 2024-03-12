@@ -147,12 +147,12 @@ export default {
       <div class="modal-content">
         <div class="modal-body">
           Non puoi aggiungere prodotti di ristoranti diversi all'interno dello stesso ordine! <br>
-          Vuoi aggiungere il prodotto e svuotare il carrello attuale? <br>
+          Vuoi svuotare il carrello attuale? <br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary mx-3" @click="nascondiErrore">Annulla</button>
           <button type="button" class="btn btn-secondary"
-            @click="emptyCartAndAddProduct(product); nascondiErrore();">Svuota carrello e aggiungi</button>
+            @click="emptyCartAndAddProduct(product); nascondiErrore();">Svuota carrello</button>
         </div>
       </div>
     </div>
