@@ -101,7 +101,7 @@ export default {
     </nav>
 
     <!-- offcanvas -->
-    <div class="offcanvas offcanvas-end d-md-block d-lg-block d-xl-block" tabindex="-1" id="offcanvasRight"
+    <div class="offcanvas offcanvas-end d-md-block d-lg-block d-xl-block overflow-auto" tabindex="-1" id="offcanvasRight"
       aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header border-3 border-bottom">
         <h5 class="offcanvas-title fw-bold" id="offcanvasRightLabel">
