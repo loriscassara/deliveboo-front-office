@@ -122,13 +122,16 @@ export default {
               <button class="btn btn-outline-dark px-3 me-2" @click="cartDeleteItemQuantity(item)">-</button>
               <button class="btn btn-outline-dark px-3" @click="cartAddItemQuantity(item)">+</button>
               <button class="btn btn-outline-danger px-2 ms-4" @click="deleteItemFromCart(item)">Rimuovi</button>
-              <hr>
+
             </div>
+
           </div>
+          <hr>
         </div>
         <p class="fw-bold text-danger text-center" v-if="store.cart.length">Totale: {{ calculateTotal() }} €</p>
         <div class="d-flex flex-row align-items-center justify-content-between">
-          <router-link v-if="store.cart.length" class="btn btn-success my-2" to="/checkout">Checkout</router-link>
+          <router-link v-if="store.cart.length" class="btn btn-success my-2 myCheckoutBtn"
+            to="/checkout">Checkout</router-link>
           <!-- <button type="button" class="btn btn-success my-2">Checkout</button> -->
           <button v-if="store.cart.length" type="button" class="btn btn-danger my-2" data-bs-toggle="modal"
             data-bs-target="#exampleModal">Svuota Carrello</button>
@@ -189,5 +192,9 @@ button:hover .fa-cart-shopping {
 
 .offcanvas-header {
   border-color: #57a708 !important;
+}
+
+.myCheckoutBtn {
+  padding: 1.1rem;
 }
 </style>
