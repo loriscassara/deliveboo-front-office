@@ -3,7 +3,7 @@ import { store } from "../store.js"; //
 
 export default {
   name: "AppHeader",
-  components:{
+  components: {
 
 
   },
@@ -16,7 +16,7 @@ export default {
 
   },
   methods: {
-    
+
     calculateTotal() {
       let total = 0;
       this.store.cart.forEach(item => {
@@ -25,11 +25,11 @@ export default {
       return total;
     },
     deleteItemFromCart(item) {
-        this.store.cart.splice(item, 1);
-        localStorage.setItem('cart', JSON.stringify(this.store.cart));
+      this.store.cart.splice(item, 1);
+      localStorage.setItem('cart', JSON.stringify(this.store.cart));
     },
     cartDeleteItemQuantity(item) {
-      (item.quantity>1) ? item.quantity-- : 0;
+      (item.quantity > 1) ? item.quantity-- : 0;
       localStorage.setItem('cart', JSON.stringify(this.store.cart));
     },
     cartAddItemQuantity(item) {
@@ -37,12 +37,12 @@ export default {
       localStorage.setItem('cart', JSON.stringify(this.store.cart));
     }
 
-    
-    },
 
-    
-    computed: {
-      cartQuantity() {
+  },
+
+
+  computed: {
+    cartQuantity() {
       return this.store.cart.reduce((total, product) => total + product.quantity, 0);
     }
 
@@ -98,11 +98,10 @@ export default {
         </div>
       </div>
     </nav>
-    
-    
 
     <!-- offcanvas -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas offcanvas-end d-md-block d-lg-block d-xl-block" tabindex="-1" id="offcanvasRight"
+      aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header border-3 border-bottom">
         <h5 class="offcanvas-title fw-bold" id="offcanvasRightLabel">
           Il mio carello
@@ -114,35 +113,34 @@ export default {
         <p class="text-center fw-bold fst-italic" v-if="!this.store.cart.length"> Non ci sono prodotti nel carrello</p>
         <p class="fw-bold text-center" v-else>I tuoi articoli:</p>
         <div v-for="item in store.cart">
-        <div class="d-flex">
-          <img src="" alt="">
-          <div>
-            <h6>Nome: {{ item.name }}</h6>
-            <p class="mb-1">Prezzo: {{ item.price }} €</p>
-            <p>Quantità: {{ item.quantity }}</p>
-            <button class="btn btn-outline-dark px-3 me-2" @click="cartDeleteItemQuantity(item)">-</button>
-            <button class="btn btn-outline-dark px-3" @click="cartAddItemQuantity(item)">+</button>
-            <button class="btn btn-outline-danger px-2 ms-4" @click="deleteItemFromCart(item)">Rimuovi</button>
-            <hr>
+          <div class="d-flex">
+            <img src="" alt="">
+            <div>
+              <h6>Nome: {{ item.name }}</h6>
+              <p class="mb-1">Prezzo: {{ item.price }} €</p>
+              <p>Quantità: {{ item.quantity }}</p>
+              <button class="btn btn-outline-dark px-3 me-2" @click="cartDeleteItemQuantity(item)">-</button>
+              <button class="btn btn-outline-dark px-3" @click="cartAddItemQuantity(item)">+</button>
+              <button class="btn btn-outline-danger px-2 ms-4" @click="deleteItemFromCart(item)">Rimuovi</button>
+              <hr>
+            </div>
           </div>
         </div>
-      </div>
         <p class="fw-bold text-danger text-center" v-if="store.cart.length">Totale: {{ calculateTotal() }} €</p>
         <div class="d-flex flex-row align-items-center justify-content-between">
           <router-link v-if="store.cart.length" class="btn btn-success my-2" to="/checkout">Checkout</router-link>
           <!-- <button type="button" class="btn btn-success my-2">Checkout</button> -->
-          <button v-if="store.cart.length" type="button" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Svuota Carrello</button>
-
-
+          <button v-if="store.cart.length" type="button" class="btn btn-danger my-2" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">Svuota Carrello</button>
         </div>
       </div>
-     
     </div>
 
   </header>
   <!-- end header section -->
 
 </template>
+
 <style scoped lang="scss">
 .navbar {
   background: #000000;
@@ -169,9 +167,9 @@ export default {
   top: -0.5rem;
 }
 
-.offcanvas {
-  width: 20% !important;
-}
+// .offcanvas {
+//   width: 100% !important;
+// }
 
 .offcanvas-header {
   background-image: url(/images/health-food-healthy-diet-diabetes-mellitus-movie-set-meal-122c7c38808c03a9d3eb4c009e8f84ba.png);
