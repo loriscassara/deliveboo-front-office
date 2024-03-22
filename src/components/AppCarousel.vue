@@ -93,4 +93,10 @@ export default {
   margin: 0 10px;
   border-radius: 10px;
 }
+
+@media screen and (max-width: 768px){
+  .logos {
+    display: none;
+  }
+}
 </style>

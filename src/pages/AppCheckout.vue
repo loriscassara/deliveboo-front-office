@@ -85,7 +85,7 @@ export default {
 <template>
        <div class="mainscreen">
       <div class="card">
-        <div class="leftside d-flex flex-column align-items-center">
+        <div class="leftside d-flex flex-column align-items-center p-3">
           <table class="table table-dark table-striped w-100 m-auto">
             <thead>
               <tr>
@@ -107,9 +107,19 @@ export default {
         <div class="rightside">
           <form @submit.prevent="submitOrder">
             <h1 class="text-uppercase fw-bold">CheckOut</h1>
-            <h2>Informazioni di pagamento</h2>
-            <p>Nome</p>
-            <input type="text" class="inputbox" name="name" placeholder="Es. Marco Rossi" required />
+            <h2>Informazioni personali</h2>
+            <p class="m-0 pt-1">Nome</p>
+            <input type="text" id="name" class="form-control" placeholder="Marco" v-model="name" required>
+            <p class="m-0 pt-1">Cognome</p>
+            <input type="text" id="surname" class="form-control" placeholder="Rossi" v-model="surname" required>
+            <p class="m-0 pt-1">Numero</p>
+            <input type="number" id="phone" class="form-control" placeholder="000-000-0000" v-model="phone" required>
+            <p class="m-0 pt-1">Email</p>
+            <input type="email" id="email" class="form-control" placeholder="marco.rossi@example.com" v-model="email" required>
+            <p class="m-0 pt-1">Indirizzo</p>
+            <input type="text" id="address" class="form-control" placeholder="Via Torino 12" v-model="address" required>
+            
+            <h2 class="pt-2">Informazioni pagamento</h2>
             <p>Numero carta</p>
             <input type="number" class="inputbox" name="card_number" id="card_number" placeholder="0000-0000-0000-0000" required />
 
@@ -128,28 +138,6 @@ export default {
             <p class="expcvv_text2">CVV</p>
             <input type="password" class="inputbox" name="cvv" id="cvv" placeholder="000" required />
         </div>
-        <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-          <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">Cognome</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Email</th>
-            <th scope="col">Indirizzo</th>
-            <th scope="col">Nota</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><input type="text" id="name" class="form-control" v-model="name" required></td>
-            <td><input type="text" id="surname" class="form-control" v-model="surname" required></td>
-            <td><input type="number" id="phone" class="form-control" v-model="phone" required></td>
-            <td><input type="email" id="email" class="form-control" v-model="email" required></td>
-            <td><input type="text" id="address" class="form-control" v-model="address" required></td>
-            <td><input type="text" id="notes" class="form-control" v-model="notes"></td>
-          </tr>
-        </tbody>
-      </table>
             <button type="submit" class="button text-uppercase">Compra ora</button>
           </form>
           <a href="http://localhost:5173/">Torna alla home</a>
