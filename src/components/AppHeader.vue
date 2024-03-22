@@ -74,7 +74,7 @@ export default {
     <!-- navbar -->
     <nav class="navbar px-5">
       <div class="container-fluid">
-        <a class="navbar-brand" href="http://localhost:5173/">
+        <a class="navbar-brand" href="http://localhost:5174/">
           <img id="nav-logo" src="/public/images/png-logo.png" alt="Bootstrap" />
         </a>
         <div>
